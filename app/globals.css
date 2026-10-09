@@ -1,26 +1,478 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------------------------------------------------------------------------
+   LAI Healthcare Solutions design tokens
+   Brand: Electric Purple #605cf0, Azure Blue #88cdf6,
+          Charcoal Black #171a18, Pearl White #f7faf8
+   --------------------------------------------------------------------------- */
+@theme {
+  --color-brand-50: #f1f0fe;
+  --color-brand-100: #e4e3fd;
+  --color-brand-200: #c9c7fb;
+  --color-brand-300: #a9a6f7;
+  --color-brand-400: #8784f4;
+  --color-brand-500: #605cf0;
+  --color-brand-600: #4a44db;
+  --color-brand-700: #3f3ac4;
+  --color-brand-800: #322e9c;
+  --color-brand-900: #25226f;
+  --color-brand-950: #1d1b4f;
+
+  --color-azure-50: #f0f8fe;
+  --color-azure-100: #def1fd;
+  --color-azure-200: #bfe4fb;
+  --color-azure-300: #88cdf6;
+  --color-azure-400: #5db8f0;
+  --color-azure-500: #3a9fe0;
+  --color-azure-600: #2780c0;
+  --color-azure-700: #1f669b;
+
+  --color-ink: #171a18;
+  --color-pearl: #f7faf8;
+
+  --color-mist-50: #f7faf8;
+  --color-mist-100: #eef2ef;
+  --color-mist-200: #e0e6e2;
+  --color-mist-300: #c8d0cb;
+  --color-mist-400: #9aa49e;
+  --color-mist-500: #6f7a74;
+  --color-mist-600: #535c57;
+  --color-mist-700: #3a423e;
+  --color-mist-800: #262c29;
+  --color-mist-900: #171a18;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --shadow-soft: 0 1px 2px rgb(23 26 24 / 0.04), 0 10px 30px -14px rgb(23 26 24 / 0.14);
+  --shadow-lift: 0 2px 6px rgb(23 26 24 / 0.05), 0 28px 56px -24px rgb(50 46 156 / 0.35);
+  --shadow-glow: 0 18px 50px -18px rgb(96 92 240 / 0.55);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-piazzolla), ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: light;
+    interpolate-size: allow-keywords;
+    --header-h: 72px;
+  }
+
+  html {
+    background: var(--color-pearl);
+    color: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    font-optical-sizing: auto;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-brand-200);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 3px;
+    border-radius: 0.5rem;
+  }
+
+  [id] {
+    scroll-margin-top: calc(var(--header-h) + 1.5rem);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---------------------------------------------------------------------------
+   Utilities
+   --------------------------------------------------------------------------- */
+@utility container-x {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (min-width: 40rem) {
+    padding-inline: 2rem;
+  }
+
+  @media (min-width: 64rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+@utility text-display {
+  font-size: clamp(2.5rem, 1.3rem + 4.2vw, 4.75rem);
+  line-height: 1.03;
+  letter-spacing: -0.028em;
+}
+
+@utility text-h1 {
+  font-size: clamp(2.35rem, 1.45rem + 3.4vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.024em;
+}
+
+@utility text-h2 {
+  font-size: clamp(1.95rem, 1.35rem + 2.3vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+@utility text-h3 {
+  font-size: clamp(1.3rem, 1.12rem + 0.7vw, 1.65rem);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+}
+
+@utility text-lead {
+  font-size: clamp(1.06rem, 0.98rem + 0.36vw, 1.24rem);
+  line-height: 1.7;
+}
+
+@utility text-eyebrow {
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility section-y {
+  padding-block: 5rem;
+
+  @media (min-width: 48rem) {
+    padding-block: 7rem;
+  }
+
+  @media (min-width: 80rem) {
+    padding-block: 8.5rem;
+  }
+}
+
+/* Faint brand grid that fades out toward the edges. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(96 92 240 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(96 92 240 / 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 35%, transparent 80%);
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(rgb(96 92 240 / 0.28) 1.2px, transparent 1.2px);
+  background-size: 18px 18px;
+}
+
+/* ---------------------------------------------------------------------------
+   Brand motifs and motion helpers
+   Kept in the components layer so Tailwind utilities can override them.
+   --------------------------------------------------------------------------- */
+@layer components {
+  /* Outlined pill tag sitting on a hairline rule, as in the brand guide. */
+  .pill-rule {
+    display: flex;
+    align-items: center;
+  }
+
+  .pill-rule::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.35;
+  }
+
+  /* Diagonal azure band used on purple sections, echoing the brand mockups. */
+  .band-azure {
+    position: absolute;
+    inset: 0;
+    background: var(--color-azure-300);
+    clip-path: polygon(0 68%, 100% 34%, 100% 56%, 0 92%);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  /* Scroll reveal. Content is hidden only once JavaScript is present to reveal it, and the
+     entrance is a keyframe animation so it never fights an element's own hover transitions. */
+  .js [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+  }
+
+  .js [data-reveal][data-revealed] {
+    animation: reveal-up 0.95s var(--ease-out-expo) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  .js [data-reveal="fade"][data-revealed] {
+    animation-name: reveal-fade;
+  }
+
+  .js [data-reveal="scale"][data-revealed] {
+    animation-name: reveal-scale;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Motion
+   --------------------------------------------------------------------------- */
+
+/* Above-the-fold entrance: runs on load without waiting for JavaScript. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise-in {
+  animation: rise-in 1s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* ECG line that draws itself, then a pulse travels along it. */
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ecg-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-line 2.6s var(--ease-in-out-soft) forwards;
+  animation-delay: var(--d, 300ms);
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+.float-slow {
+  animation: float-y 7s ease-in-out infinite;
+}
+
+.float-slower {
+  animation: float-y 9s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Accordion (native details/summary). */
+.faq summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq .faq-icon {
+  transition:
+    transform 0.4s var(--ease-out-expo),
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.faq[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition:
+    block-size 0.45s var(--ease-out-expo),
+    content-visibility 0.45s allow-discrete;
+}
+
+.faq[open]::details-content {
+  block-size: auto;
+}
+
+/* Animated underline for text links. */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition:
+    background-size 0.4s var(--ease-out-expo),
+    color 0.25s ease;
+}
+
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* ---------------------------------------------------------------------------
+   Page transitions (React <ViewTransition>)
+   --------------------------------------------------------------------------- */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-old(.page-exit) {
+  animation: 180ms ease-in both vt-fade-out;
+}
+
+::view-transition-new(.page-enter) {
+  animation: 460ms var(--ease-out-expo) 90ms both vt-rise-in;
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js [data-reveal]:not([data-revealed]) {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .ecg-draw {
+    stroke-dashoffset: 0;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
 }

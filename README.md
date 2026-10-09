@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# LAI Healthcare Solutions website
 
-## Getting Started
+Marketing website for [LAI Healthcare Solutions](https://www.laihealthcaresolutions.com), a clinician-led consultancy
+for responsible healthcare AI, clinical informatics, workforce optimization, leadership development and research
+strategy. Rebuilt from WordPress on Next.js with the new LAI brand identity.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, JavaScript) with Cache Components and Partial Prefetching. Every page is fully
+  prerendered (`ensureStatic = "navigation"` in `app/layout.js`), so the site is served as static HTML.
+- **React 19** with the **React Compiler** enabled.
+- **Tailwind CSS v4** with brand tokens in `app/globals.css`.
+- **Lenis** for smooth wheel scrolling, React `<ViewTransition>` for page transitions and a lightweight
+  IntersectionObserver for scroll reveals. All motion respects `prefers-reduced-motion`.
+- Contact form built on a Server Action that sends email through the Resend HTTP API.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # then fill in the values
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts: `npm run build`, `npm run start`, `npm run lint`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL used in metadata, sitemap and structured data. Defaults to `https://www.laihealthcaresolutions.com`. |
+| `RESEND_API_KEY` | API key from [Resend](https://resend.com) for contact form delivery. |
+| `CONTACT_TO_EMAIL` | Inbox that receives contact form messages. Defaults to `hello@laihealthcaresolutions.com`. |
+| `CONTACT_FROM_EMAIL` | Sender address on a domain verified in Resend. |
 
-## Learn More
+Without `RESEND_API_KEY`, the contact form logs submissions to the server console in development and shows visitors
+a "please email us directly" message in production. **Verify the sending domain in Resend before launch**, otherwise
+messages will not be delivered.
 
-To learn more about Next.js, take a look at the following resources:
+## Where to edit content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| What | File |
+| --- | --- |
+| Company details, email, booking link, social links, founder credentials, publications | `lib/site.js` |
+| All six service pages (copy, deliverables, FAQs, SEO titles and descriptions) | `lib/services.js` |
+| Home page sections | `app/page.js` |
+| About, Speaking, Contact, Legal pages | `app/<page>/page.js` |
+| Navigation, footer | `components/site-header.js`, `components/site-footer.js` |
+| Share images (Open Graph) | `opengraph-image.js` files next to each page, rendered by `lib/og.js` |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Brand system
 
-## Deploy on Vercel
+From the LAI brand guide:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Token | Hex | Use |
+| --- | --- | --- |
+| Electric Purple | `#605cf0` | Primary brand color, buttons, accents |
+| Azure Blue | `#88cdf6` | Secondary brand color, highlights on dark backgrounds |
+| Charcoal Black | `#171a18` | Body text, dark sections, footer |
+| Pearl White | `#f7faf8` | Page background |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Tints and neutral scales are defined in `app/globals.css` and were checked against WCAG AA contrast.
+
+**Typography.** Body text uses **Poppins**, as specified. The brand's heading face, *CDA Independence Display*, is
+not available for web licensing here, so headings use **Piazzolla**, the closest open-source match (flared stems,
+wedge serifs, similar weight). If you hold a web license for CDA Independence Display, add the font files to the
+project and swap the `Piazzolla` import in `app/layout.js` for `next/font/local`.
+
+**Logos.** The logo is rendered from vector paths extracted from the original `.ai` source file
+(`components/logo-paths.js`), so it stays sharp at every size and can switch between the purple, white and charcoal
+variations through CSS. Standalone files are in `public/brand/`.
+
+## SEO
+
+- Unique titles, descriptions and canonical URLs on every page, plus per-page Open Graph images.
+- JSON-LD structured data: Organization, WebSite, Person (founder), Service, FAQPage and BreadcrumbList.
+- `sitemap.xml`, `robots.txt` and a web app manifest are generated from `app/sitemap.js`, `app/robots.js` and
+  `app/manifest.js`. Update `LAST_UPDATED` in `app/sitemap.js` when content changes.
+- Permanent redirects from the old WordPress URLs (for example `/ai-governance-strategy/` →
+  `/services/ai-governance-strategy`) live in `next.config.mjs`.
+
+## Deploying to Vercel
+
+1. Import the GitHub repository in Vercel (framework preset: Next.js).
+2. Add every environment variable above in **Project → Settings → Environment Variables**.
+3. Add the custom domain and point DNS at Vercel.
+4. After the first deploy, submit the contact form and confirm the email arrives, and submit
+   `https://www.laihealthcaresolutions.com/sitemap.xml` in Google Search Console.
+
+## Before launch: items to confirm with LAI
+
+- Founder biography, credentials and career details were compiled from Stephanie's public profiles and publications.
+  Please review them for accuracy and current titles.
+- The previous site claimed "100+ hospitals and startups". It has been left out because it could not be verified.
+  Add it back, along with client logos or testimonials, once there is permission to publish them.
+- Review the privacy policy and terms in `app/legal/page.js` with legal counsel.
+- Confirm the scheduling link in `lib/site.js` is the one to use for both consultations and speaking requests.
