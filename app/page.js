@@ -11,6 +11,7 @@ import ServiceCard from "@/components/service-card";
 import ProcessSteps from "@/components/process-steps";
 import Faq from "@/components/faq";
 import CtaSection from "@/components/cta-section";
+import HealthTechBand from "@/components/health-tech-band";
 import JsonLd from "@/components/json-ld";
 import {
   ArrowRight,
@@ -31,12 +32,18 @@ import { founder, site } from "@/lib/site";
 import { pageMetadata, websiteJsonLd } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "LAI Healthcare Solutions | Clinician-Led Healthcare AI Strategy",
+  title: "LAI Healthcare Solutions | Clinician-Led Healthcare AI Consulting",
   absoluteTitle: true,
   description:
-    "Clinician-led consulting for responsible healthcare AI. AI governance, clinical informatics, nursing workforce optimization and leadership development for hospitals and health systems.",
+    "Clinician-led consulting for responsible healthcare AI. AI governance, clinical informatics, workforce and leadership development for health systems, plus clinical, operational and growth strategy for health tech companies.",
   path: "/",
 });
+
+const heroPoints = [
+  "Integrate AI into clinical workflows",
+  "Adopt AI responsibly",
+  "Develop and implement change management for AI",
+];
 
 const painPoints = [
   {
@@ -113,15 +120,15 @@ const audiences = [
   },
   {
     icon: Cpu,
-    title: "Health technology companies",
-    body: "Clinical workflow insight, validation design and preparation for health system governance review.",
+    title: "Healthcare tech start-ups and companies",
+    body: "A clinical lens, operational expertise and growth strategy for start-ups, health tech and healthcare-related companies.",
   },
 ];
 
 const homeFaqs = [
   {
     q: "What does LAI Healthcare Solutions do?",
-    a: "We are a clinician-led consulting firm. We help healthcare organizations adopt AI responsibly, strengthen clinical analytics and informatics, optimize the nursing workforce, develop leaders and translate research into practice. We also deliver keynotes and education on these topics.",
+    a: "We are a clinician-led consulting firm. We help healthcare organizations adopt AI responsibly, strengthen clinical analytics and informatics, optimize the nursing workforce, develop leaders and translate research into practice. We also advise healthcare technology start-ups and companies with a clinical lens, operational expertise and growth strategy, and we deliver keynotes and education on these topics.",
   },
   {
     q: "Who founded LAI Healthcare Solutions?",
@@ -130,6 +137,10 @@ const homeFaqs = [
   {
     q: "What difference does a clinician-led approach make?",
     a: "Clinicians understand the workflows, risks and culture that technology has to fit into. That perspective helps organizations avoid tools that impress in a demonstration but fail on the unit, and design governance that frontline staff trust.",
+  },
+  {
+    q: "Do you work with healthcare technology companies?",
+    a: "Yes. We advise healthcare tech start-ups, established health tech companies and other healthcare-related businesses. We bring a clinical lens to the product, operational expertise in how hospitals adopt new tools and a growth strategy for selling into health systems.",
   },
   {
     q: "Do you work on-site or remotely?",
@@ -143,7 +154,7 @@ const homeFaqs = [
 
 export default function HomePage() {
   const [featured, ...rest] = services;
-  const spans = ["lg:col-span-7", "lg:col-span-7", "lg:col-span-4", "lg:col-span-4", "lg:col-span-4"];
+  const spans = ["lg:col-span-7", "lg:col-span-7", "lg:col-span-6", "lg:col-span-6", "lg:col-span-6", "lg:col-span-6"];
 
   return (
     <PageTransition>
@@ -155,16 +166,26 @@ export default function HomePage() {
 
         <div className="container-x relative grid items-center gap-16 lg:grid-cols-[1.12fr_0.88fr] lg:gap-12">
           <div>
-            <SectionLabel className="rise-in">Clinician-led healthcare AI</SectionLabel>
-            <h1 className="rise-in mt-7 text-display text-ink" style={{ "--d": "80ms" }}>
-              <span className="block">AI strategy you can trust.</span>
-              <span className="block text-brand-500">Clinical outcomes you can measure.</span>
+            <SectionLabel className="rise-in">Clinician-led consulting</SectionLabel>
+            <h1 className="rise-in mt-7 text-h1 text-ink" style={{ "--d": "80ms" }}>
+              <span className="block">Clinical expertise you can count on.</span>
+              <span className="block text-brand-500">Strategy driven by data and transparency.</span>
             </h1>
-            <p className="rise-in mt-7 max-w-xl text-lead text-mist-600" style={{ "--d": "170ms" }}>
-              We help hospitals, health systems and academic medical centers adopt AI responsibly, redesign the
-              workflows around it and develop the leaders who make change last, with bedside experience and research
-              rigor behind every recommendation.
-            </p>
+            <div className="rise-in mt-7 max-w-xl" style={{ "--d": "170ms" }}>
+              <p className="text-lead text-mist-600">
+                We help hospitals, health systems and academic medical centers make informed decisions to:
+              </p>
+              <ul className="mt-5 grid gap-3">
+                {heroPoints.map((point) => (
+                  <li key={point} className="flex items-start gap-3 text-[1.05rem] font-medium leading-snug text-ink">
+                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-500 text-white">
+                      <Check className="h-3.5 w-3.5" strokeWidth={2.4} />
+                    </span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="rise-in mt-10 flex flex-wrap gap-3" style={{ "--d": "250ms" }}>
               <ButtonLink href="/contact" size="lg">
                 Book a consultation
@@ -233,8 +254,8 @@ export default function HomePage() {
               <SectionLabel rule>What we do</SectionLabel>
               <h2 className="mt-6 text-h2">Where clinical expertise meets responsible AI</h2>
               <p className="mt-5 text-lead text-mist-600">
-                Seven ways we help healthcare organizations make technology work for patients and for the people who
-                care for them.
+                Eight ways we help healthcare organizations, and the companies that build for them, make technology
+                work for patients and for the people who care for them.
               </p>
             </div>
             <div data-reveal style={{ "--d": "120ms" }}>
@@ -489,6 +510,8 @@ export default function HomePage() {
       </section>
 
       <Faq items={homeFaqs} intro="Short answers to the questions healthcare leaders ask us most." />
+
+      <HealthTechBand />
 
       <CtaSection />
 

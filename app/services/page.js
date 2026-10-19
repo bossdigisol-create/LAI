@@ -5,6 +5,7 @@ import SectionLabel from "@/components/section-label";
 import { ButtonLink } from "@/components/button";
 import ProcessSteps from "@/components/process-steps";
 import CtaSection from "@/components/cta-section";
+import HealthTechBand from "@/components/health-tech-band";
 import { ArrowRight, Check, ServiceIcon } from "@/components/icons";
 import { services, speakingCard, serviceHref } from "@/lib/services";
 import { pageMetadata } from "@/lib/seo";
@@ -12,7 +13,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Healthcare AI, Informatics & Nursing Consulting Services",
   description:
-    "Clinician-led consulting services: AI governance and strategy, healthcare AI implementation, clinical analytics and informatics, workforce optimization, leadership development and research strategy.",
+    "Clinician-led consulting services: AI governance and strategy, healthcare AI implementation, clinical analytics and informatics, workforce optimization, leadership development, research strategy and health tech start-up advisory.",
   path: "/services",
 });
 
@@ -27,7 +28,7 @@ const engagementModels = [
   },
   {
     title: "Ongoing advisory",
-    body: "A clinical advisor for executives and boards as AI, workforce and quality decisions arise.",
+    body: "A clinical advisor for executives, boards and health tech leadership teams as AI, workforce, product and growth decisions arise.",
   },
   {
     title: "Education and workshops",
@@ -42,6 +43,7 @@ const startingPoints = [
   { need: "Our staffing model is not working", slug: "workforce-optimization" },
   { need: "Our leaders need more support", slug: "leadership-mentorship-development" },
   { need: "We want research to change practice", slug: "research-strategy-evidence-translation" },
+  { need: "We are building a product for healthcare", slug: "health-tech-advisory" },
 ];
 
 function WhereToStart() {
@@ -79,7 +81,7 @@ export default function ServicesPage() {
         breadcrumbs={[{ name: "Services", path: "/services" }]}
         eyebrow="Services"
         title="Consulting for safer, smarter, more human care"
-        intro="From AI governance to workforce design, every service is led by clinical expertise and grounded in evidence. Engage us for a focused assessment, a defined project or ongoing advisory support."
+        intro="From AI governance to workforce design, every service is led by clinical expertise and grounded in evidence. We work with hospitals, health systems and academic medical centers, and with the healthcare tech start-ups and companies that build for them."
         aside={<WhereToStart />}
       >
         <ButtonLink href="/contact">Book a consultation</ButtonLink>
@@ -188,6 +190,7 @@ export default function ServicesPage() {
       </section>
 
       <div className="pt-24 md:pt-32">
+        <HealthTechBand />
         <CtaSection
           title="Not sure which service fits?"
           body="Tell us what you are trying to solve. We will point you to the right starting place, even if it is not us."

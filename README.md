@@ -1,8 +1,8 @@
 # LAI Healthcare Solutions website
 
 Marketing website for [LAI Healthcare Solutions](https://www.laihealthcaresolutions.com), a clinician-led consultancy
-for responsible healthcare AI, clinical informatics, workforce optimization, leadership development and research
-strategy. Rebuilt from WordPress on Next.js with the new LAI brand identity.
+for responsible healthcare AI, clinical informatics, workforce optimization, leadership development, research
+strategy and health tech start-up advisory. Rebuilt from WordPress on Next.js with the new LAI brand identity.
 
 ## Stack
 
@@ -41,8 +41,9 @@ messages will not be delivered.
 
 | What | File |
 | --- | --- |
-| Company details, email, booking link, social links, founder credentials, publications | `lib/site.js` |
-| All six service pages (copy, deliverables, FAQs, SEO titles and descriptions) | `lib/services.js` |
+| Company details, email, booking link, social links, founder credentials, publications and articles | `lib/site.js` |
+| All seven service pages (copy, deliverables, FAQs, SEO titles and descriptions) | `lib/services.js` |
+| "For healthcare companies" section shown on every main page | `components/health-tech-band.js` |
 | Home page sections | `app/page.js` |
 | About, Speaking, Contact, Legal pages | `app/<page>/page.js` |
 | Navigation, footer | `components/site-header.js`, `components/site-footer.js` |
@@ -94,4 +95,9 @@ variations through CSS. Standalone files are in `public/brand/`.
 - The previous site claimed "100+ hospitals and startups". It has been left out because it could not be verified.
   Add it back, along with client logos or testimonials, once there is permission to publish them.
 - Review the privacy policy and terms in `app/legal/page.js` with legal counsel.
-- Confirm the scheduling link in `lib/site.js` is the one to use for both consultations and speaking requests.
+- Replace the scheduling link (`bookingUrl` in `lib/site.js`) with the InsiderRN booking page once Stephanie confirms
+  it. It is used for both consultations and speaking requests.
+- Swap in the updated founder photo when Stephanie provides it (`public/images/`, referenced by `founder.image` in
+  `lib/site.js`).
+- Review the "Other authored work" list on the About page (`articles` and `otherPublications` in `lib/site.js`).
+- Update the LAI LinkedIn page with the new branding and logo.

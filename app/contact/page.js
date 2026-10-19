@@ -1,6 +1,7 @@
 import PageTransition from "@/components/page-transition";
 import PageHero from "@/components/page-hero";
 import ContactForm from "@/components/contact-form";
+import HealthTechBand from "@/components/health-tech-band";
 import EmailText from "@/components/email-text";
 import { ArrowUpRight, Calendar, Instagram, LinkedIn, Mail } from "@/components/icons";
 import { inquiryReasons, site } from "@/lib/site";
@@ -9,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Contact Us | Book a Consultation",
   description:
-    "Contact LAI Healthcare Solutions to discuss AI governance, clinical informatics, workforce optimization, leadership development, research strategy or a speaking engagement.",
+    "Contact LAI Healthcare Solutions to discuss AI governance, clinical informatics, workforce optimization, leadership development, research strategy, health tech advisory or a speaking engagement.",
   path: "/contact",
 });
 
@@ -26,7 +27,7 @@ export default function ContactPage() {
         breadcrumbs={[{ name: "Contact", path: "/contact" }]}
         eyebrow="Contact"
         title="Let’s build what your organization needs next."
-        intro="If you are here, something in your organization is ready for its next step: clearer strategy, stronger leadership, safer systems or smarter use of AI. Share a few details and we will follow up with practical next steps."
+        intro="If you are here, something in your organization is ready for its next step: clearer strategy, stronger leadership, safer systems, smarter use of AI or a healthcare product ready to grow. Share a few details and we will follow up with practical next steps."
         compact
       />
 
@@ -121,6 +122,8 @@ export default function ContactPage() {
           </aside>
         </div>
       </section>
+
+      <HealthTechBand />
     </PageTransition>
   );
 }

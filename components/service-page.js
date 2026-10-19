@@ -8,6 +8,7 @@ import ProcessSteps from "./process-steps";
 import ServiceCard from "./service-card";
 import Faq from "./faq";
 import CtaSection from "./cta-section";
+import HealthTechBand from "./health-tech-band";
 import JsonLd from "./json-ld";
 import { ArrowRight, Check, ServiceIcon } from "./icons";
 import { getService, serviceHref } from "@/lib/services";
@@ -215,6 +216,8 @@ export default function ServicePage({ slug }) {
           </div>
         </div>
       </section>
+
+      {s.slug !== "health-tech-advisory" && <HealthTechBand />}
 
       <CtaSection
         title={`Let’s talk about ${s.topic}`}

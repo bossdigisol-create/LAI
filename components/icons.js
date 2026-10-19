@@ -239,6 +239,7 @@ const serviceIcons = {
   compass: Compass,
   book: Book,
   mic: Mic,
+  cpu: Cpu,
 };
 
 export function ServiceIcon({ name, ...props }) {

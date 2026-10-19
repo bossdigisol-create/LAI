@@ -8,6 +8,6 @@ export default async function Image() {
   return renderOgImage({
     eyebrow: "Services",
     title: "Consulting for safer, smarter, more human care",
-    subtitle: "AI governance, implementation, analytics, workforce, leadership and research strategy.",
+    subtitle: "AI governance, implementation, analytics, workforce, leadership, research and health tech advisory.",
   });
 }

@@ -5,6 +5,7 @@ import SectionLabel from "@/components/section-label";
 import { ButtonLink } from "@/components/button";
 import Faq from "@/components/faq";
 import CtaSection from "@/components/cta-section";
+import HealthTechBand from "@/components/health-tech-band";
 import { Calendar, Check, Compass, Graduation, Layers, Mic, Target, Users } from "@/components/icons";
 import { founder, site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
@@ -298,6 +299,7 @@ export default function SpeakingPage() {
       <Faq items={speakingFaqs} heading="Booking questions" className="bg-white" />
 
       <div className="pt-24 md:pt-32">
+        <HealthTechBand />
         <CtaSection
           title="Planning an event? Let’s talk."
           body="Share your date, audience and theme, and we will follow up with availability and ideas for a session that fits."

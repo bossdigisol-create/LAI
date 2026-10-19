@@ -24,8 +24,8 @@ export default function SiteFooter() {
               <Logo className="h-9 w-auto" title="LAI Healthcare Solutions" />
             </Link>
             <p className="mt-6 text-[0.95rem] leading-relaxed text-mist-300">
-              Clinician-led consulting for responsible AI, stronger clinical systems and the leaders who make change
-              last.
+              Clinician-led consulting for health systems and healthcare companies: responsible AI, stronger clinical
+              systems, growth strategy and the leaders who make change last.
             </p>
             <p className="mt-6 font-display text-xl leading-snug text-pearl">{site.tagline}</p>
           </div>

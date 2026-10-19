@@ -33,7 +33,7 @@ const sans = Poppins({
 export const metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "LAI Healthcare Solutions | Clinician-Led Healthcare AI Strategy",
+    default: "LAI Healthcare Solutions | Clinician-Led Healthcare AI Consulting",
     template: "%s | LAI Healthcare Solutions",
   },
   description: site.description,

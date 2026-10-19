@@ -4,10 +4,11 @@ import PageHero from "@/components/page-hero";
 import SectionLabel from "@/components/section-label";
 import { ButtonLink } from "@/components/button";
 import CtaSection from "@/components/cta-section";
+import HealthTechBand from "@/components/health-tech-band";
 import JsonLd from "@/components/json-ld";
 import { LogoMark } from "@/components/logo";
-import { ArrowUpRight, Check, Graduation, HeartPulse, Quote, Shield } from "@/components/icons";
-import { founder, publications } from "@/lib/site";
+import { ArrowUpRight, Book, Check, Graduation, HeartPulse, Quote, Shield, Spark } from "@/components/icons";
+import { articles, founder, otherPublications, publications } from "@/lib/site";
 import { founderJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -44,7 +45,7 @@ const timeline = [
 const aboutFacts = [
   { label: "Founded", value: "2024" },
   { label: "Led by", value: "A nurse scientist and AI researcher" },
-  { label: "Serving", value: "Healthcare organizations across the U.S." },
+  { label: "Serving", value: "Health systems and healthcare companies across the U.S." },
 ];
 
 function AboutAside() {
@@ -88,7 +89,7 @@ export default function AboutPage() {
         breadcrumbs={[{ name: "About", path: "/about" }]}
         eyebrow="About LAI"
         title="Built by clinicians. Designed for the future of care."
-        intro="LAI Healthcare Solutions is a consulting firm rooted in nursing leadership, clinical research and responsible AI. We help healthcare organizations turn complexity into clarity and build systems that are safer, smarter and ready for what comes next."
+        intro="LAI Healthcare Solutions is a consulting firm rooted in nursing leadership, clinical research and responsible AI. We help healthcare organizations turn complexity into clarity, and we give healthcare tech start-ups and companies a clinical lens, operational expertise and growth strategy."
         aside={<AboutAside />}
       >
         <ButtonLink href="/contact">Work with us</ButtonLink>
@@ -296,6 +297,82 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Other authored work */}
+      <section className="pb-24 md:pb-32">
+        <div className="container-x">
+          <div data-reveal className="max-w-2xl">
+            <SectionLabel rule>Other authored work</SectionLabel>
+            <h2 className="mt-6 text-h2">Writing for clinicians, leaders and researchers</h2>
+            <p className="mt-5 text-lead text-mist-600">
+              Articles on nursing and AI written for healthcare leaders, and more of the peer-reviewed research
+              Stephanie has co-authored.
+            </p>
+          </div>
+          <div className="mt-12 grid items-start gap-10 lg:grid-cols-2 lg:gap-8">
+            <div data-reveal>
+              <h3 className="flex items-center gap-3 text-eyebrow font-sans text-brand-600">
+                <Spark className="h-5 w-5" />
+                Articles &amp; commentary
+              </h3>
+              <ul className="mt-5 grid gap-4">
+                {articles.map((a) => (
+                  <li key={a.url}>
+                    <a
+                      href={a.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block rounded-[1.5rem] border border-ink/[0.07] bg-white p-6 transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-soft md:p-7"
+                    >
+                      <span className="block text-sm text-mist-600">
+                        <span className="font-medium text-ink/80">{a.outlet}</span> · {a.year}
+                      </span>
+                      <span className="mt-2 block font-display text-xl leading-snug text-ink transition-colors group-hover:text-brand-600">
+                        {a.title}
+                      </span>
+                      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand-600">
+                        Read article
+                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        <span className="sr-only">(opens in a new tab)</span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div data-reveal style={{ "--d": "120ms" }}>
+              <h3 className="flex items-center gap-3 text-eyebrow font-sans text-brand-600">
+                <Book className="h-5 w-5" />
+                More peer-reviewed research
+              </h3>
+              <ul className="mt-5 grid gap-4">
+                {otherPublications.map((p) => (
+                  <li key={p.doi}>
+                    <a
+                      href={`https://doi.org/${p.doi}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block rounded-[1.5rem] border border-ink/[0.07] bg-white p-6 transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-soft md:p-7"
+                    >
+                      <span className="block text-sm text-mist-600">
+                        <em className="not-italic font-medium text-ink/80">{p.journal}</em> · {p.year} · {p.role}
+                      </span>
+                      <span className="mt-2 block font-medium leading-snug text-ink transition-colors group-hover:text-brand-600">
+                        {p.title}
+                      </span>
+                      <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand-600">
+                        Read
+                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        <span className="sr-only">(opens in a new tab)</span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Principles */}
       <section className="section-y bg-white">
         <div className="container-x">
@@ -323,6 +400,7 @@ export default function AboutPage() {
       </section>
 
       <div className="pt-24 md:pt-32">
+        <HealthTechBand />
         <CtaSection
           title="Let’s build what your organization needs next"
           body="Whether you are setting AI strategy, redesigning care or developing your next generation of leaders, we would like to hear what you are working on."
