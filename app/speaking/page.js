@@ -5,15 +5,14 @@ import SectionLabel from "@/components/section-label";
 import { ButtonLink } from "@/components/button";
 import Faq from "@/components/faq";
 import CtaSection from "@/components/cta-section";
-import HealthTechBand from "@/components/health-tech-band";
 import { Calendar, Check, Compass, Graduation, Layers, Mic, Target, Users } from "@/components/icons";
 import { founder, site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Healthcare AI Keynote Speaker | Stephanie O. Frisch, PhD, RN",
+  title: "Healthcare AI Keynote Speaker | Stephanie Frisch, PhD, RN",
   description:
-    "Book Stephanie O. Frisch, PhD, RN, for evidence-based keynotes and workshops on responsible AI, nursing leadership, workforce transformation and clinical decision-making.",
+    "Book Stephanie Frisch, PhD, RN, for evidence-based keynotes and workshops on responsible AI, nursing leadership, workforce transformation and clinical decision-making.",
   path: "/speaking",
 });
 
@@ -143,7 +142,7 @@ export default function SpeakingPage() {
         breadcrumbs={[{ name: "Speaking", path: "/speaking" }]}
         eyebrow="Speaking engagements & keynotes"
         title="Keynotes on AI, nursing leadership and the future of care"
-        intro="Healthcare is changing fast, and leaders need clarity they can trust. Stephanie O. Frisch, PhD, RN, delivers evidence-based talks that cut through the hype, challenge assumptions and leave audiences with practical next steps."
+        intro="Healthcare is changing fast, and leaders need clarity they can trust. Stephanie Frisch, PhD, RN, delivers passionate, fun and evidence-based talks that cut through the hype, challenge assumptions and leave audiences with practical next steps."
         aside={<SpeakerAside />}
       >
         <ButtonLink href={site.bookingUrl} icon="external">
@@ -162,7 +161,7 @@ export default function SpeakingPage() {
             <div className="relative overflow-hidden rounded-[2.25rem] shadow-lift">
               <Image
                 src={founder.image}
-                alt="Keynote speaker Stephanie O. Frisch, PhD, RN"
+                alt={`Keynote speaker ${founder.name}, PhD, RN`}
                 width={founder.imageWidth}
                 height={founder.imageHeight}
                 sizes="(min-width: 1024px) 28rem, 90vw"
@@ -176,8 +175,7 @@ export default function SpeakingPage() {
             <div className="mt-6 space-y-5 text-lead text-mist-600">
               <p>
                 Stephanie brings a rare mix of perspectives to the stage: years of critical care, emergency and flight
-                nursing; leadership in Level I emergency and trauma settings; and research on machine learning for
-                emergency triage at the University of Pittsburgh.
+                nursing; leadership in Level I emergency and trauma settings; and research in artificial intelligence.
               </p>
               <p>
                 Audiences get the clinical reality behind the headlines, explained clearly and without jargon, along
@@ -299,7 +297,6 @@ export default function SpeakingPage() {
       <Faq items={speakingFaqs} heading="Booking questions" className="bg-white" />
 
       <div className="pt-24 md:pt-32">
-        <HealthTechBand />
         <CtaSection
           title="Planning an event? Let’s talk."
           body="Share your date, audience and theme, and we will follow up with availability and ideas for a session that fits."

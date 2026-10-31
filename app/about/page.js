@@ -4,20 +4,59 @@ import PageHero from "@/components/page-hero";
 import SectionLabel from "@/components/section-label";
 import { ButtonLink } from "@/components/button";
 import CtaSection from "@/components/cta-section";
-import HealthTechBand from "@/components/health-tech-band";
 import JsonLd from "@/components/json-ld";
 import { LogoMark } from "@/components/logo";
 import { ArrowUpRight, Book, Check, Graduation, HeartPulse, Quote, Shield, Spark } from "@/components/icons";
-import { articles, founder, otherPublications, publications } from "@/lib/site";
+import { articles, founder, otherPublications, publications, site } from "@/lib/site";
 import { founderJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "About LAI & Founder Stephanie O. Frisch, PhD, RN",
+  title: "About LAI & Founder Stephanie Frisch, PhD, RN",
   description:
-    "LAI Healthcare Solutions was founded by Stephanie O. Frisch, PhD, MSN, RN, CEN, CCRN-K, a critical care, emergency and flight nurse turned nurse scientist and AI researcher.",
+    "LAI Healthcare Solutions was founded by Stephanie Frisch, PhD, MSN, RN, CEN, CCRN-K, a critical care, emergency and flight nurse turned nurse scientist, AI researcher and healthcare technology executive.",
   path: "/about",
   type: "profile",
 });
+
+// Founder biography, grouped under the subheadings Stephanie provided.
+const founderStory = [
+  {
+    heading: "From the bedside to healthcare innovation",
+    subheading: "A career built at the intersection of healthcare, science and technology",
+    paragraphs: [
+      "Stephanie’s career reflects more than two decades of experience spanning clinical practice, nursing leadership, scientific research, healthcare technology and the clinical workforce. Her journey from the bedside to healthcare innovation has been driven by a commitment to understanding complex healthcare challenges and developing practical, data-driven solutions.",
+      "Her career began in critical care, emergency and flight nursing, where she cared for critically ill patients in high-acuity environments. These experiences established her understanding of clinical decision-making, patient safety, healthcare workflows and the realities clinicians face every day.",
+      "As she advanced into nursing leadership, her perspective expanded beyond individual patients to include clinical operations, workforce management, organizational strategy and healthcare system performance. She gained firsthand insight into how clinical workflows, organizational processes and technology influence both clinician experiences and patient outcomes.",
+    ],
+  },
+  {
+    heading: "Advancing healthcare through nursing science and AI",
+    paragraphs: [
+      "Driven by a desire to improve early recognition of critical illness, Stephanie pursued her PhD in Nursing Science at the University of Pittsburgh, where she was selected as a Robert Wood Johnson Foundation (RWJF) Future of Nursing Scholar and received predoctoral and postdoctoral research funding.",
+      "Her doctoral research was supported by a competitive fellowship from the National Institutes of Health’s National Institute of Nursing Research (NINR), funding her development of predictive machine learning algorithms designed to identify critically ill patients and recognize time-sensitive conditions, including acute coronary syndrome, at emergency department arrival.",
+      "Following her doctoral training, Stephanie completed an RWJF-funded postdoctoral fellowship in biomedical informatics at the University of Pittsburgh School of Medicine. Her research focused on applying natural language processing (NLP) and machine learning to validate a predictive tool for identifying acute coronary syndrome at emergency department triage, using clinical documentation and objective patient data.",
+      "This work strengthened her expertise in artificial intelligence, predictive analytics, clinical data science and translating complex research into solutions with practical clinical applications.",
+    ],
+  },
+  {
+    heading: "Translating clinical expertise into healthcare technology",
+    paragraphs: [
+      "Building on her clinical, leadership and scientific foundation, Stephanie transitioned into healthcare technology, where she brought a unique perspective to the development, implementation and scaling of technology-enabled healthcare solutions.",
+      "Working across engineering, product development, client success and integration teams, she recognized a persistent challenge: healthcare and technology often speak different languages, even when working toward the same goal.",
+      "Technology teams understand how to build solutions. Clinicians understand the complexities of delivering care. Healthcare executives understand organizational priorities and operational constraints. Yet successful innovation requires these perspectives to be connected.",
+      "Stephanie’s multidisciplinary background allows her to bridge these worlds, translating clinical needs into technical requirements, aligning product strategy with operational realities and helping cross-functional teams develop solutions grounded in real-world healthcare delivery.",
+    ],
+  },
+  {
+    heading: "The foundation of LAI Healthcare Solutions",
+    paragraphs: [
+      "Stephanie founded LAI Healthcare Solutions to address this disconnect between healthcare and technology.",
+      "Drawing on her experience as a bedside nurse, nursing leader, nurse scientist and healthcare technology executive, she recognized the need for a partner capable of connecting clinical expertise, scientific evidence, operational strategy and technical innovation.",
+      "LAI Healthcare Solutions works with healthcare organizations and technology companies to translate complex clinical challenges into actionable strategies, guide AI and technology development, and support meaningful implementation.",
+      "Her career reflects a defining belief: healthcare innovation should not be driven by technological capabilities alone. It must also be informed by the people delivering care, the systems in which they work and the patients those innovations are intended to serve.",
+    ],
+  },
+];
 
 const timeline = [
   {
@@ -34,7 +73,11 @@ const timeline = [
   },
   {
     stage: "Research",
-    body: "Earned her PhD at the University of Pittsburgh as a Robert Wood Johnson Foundation Future of Nursing Scholar with NIH funding, then completed postdoctoral research in biomedical informatics.",
+    body: "Earned her PhD in Artificial Intelligence and Nursing at the University of Pittsburgh as a Robert Wood Johnson Foundation Future of Nursing Scholar with NIH funding, then completed an RWJF postdoctoral research fellowship in biomedical informatics, natural language processing (NLP) and machine learning (ML).",
+  },
+  {
+    stage: "Healthcare tech executive",
+    body: "Led cross-functional teams across product development, engineering, client success and implementation, translating clinical insights into scalable technology solutions that improve healthcare operations, patient experiences and outcomes.",
   },
   {
     stage: "LAI Healthcare Solutions",
@@ -44,7 +87,7 @@ const timeline = [
 
 const aboutFacts = [
   { label: "Founded", value: "2024" },
-  { label: "Led by", value: "A nurse scientist and AI researcher" },
+  { label: "Led by", value: "Clinical experience, scientific curiosity, and the courage to think differently" },
   { label: "Serving", value: "Health systems and healthcare companies across the U.S." },
 ];
 
@@ -59,12 +102,12 @@ function AboutAside() {
         />
         <LogoMark decorative className="relative h-14 w-auto text-white" />
         <p className="relative mt-6 font-display text-2xl leading-snug">
-          Named for three children. Built for the next generation of care.
+          A name inspired by 3 kids. Built to challenge what healthcare could become.
         </p>
         <dl className="relative mt-8 grid gap-4 border-t border-white/25 pt-6">
           {aboutFacts.map((f) => (
             <div key={f.label} className="flex items-baseline justify-between gap-6">
-              <dt className="text-sm text-white/80">{f.label}</dt>
+              <dt className="shrink-0 text-sm text-white/80">{f.label}</dt>
               <dd className="text-right text-sm font-medium">{f.value}</dd>
             </div>
           ))}
@@ -88,7 +131,7 @@ export default function AboutPage() {
       <PageHero
         breadcrumbs={[{ name: "About", path: "/about" }]}
         eyebrow="About LAI"
-        title="Built by clinicians. Designed for the future of care."
+        title={site.tagline}
         intro="LAI Healthcare Solutions is a consulting firm rooted in nursing leadership, clinical research and responsible AI. We help healthcare organizations turn complexity into clarity, and we give healthcare tech start-ups and companies a clinical lens, operational expertise and growth strategy."
         aside={<AboutAside />}
       >
@@ -107,19 +150,21 @@ export default function AboutPage() {
           </div>
           <div data-reveal style={{ "--d": "120ms" }} className="space-y-6 text-lead text-mist-600">
             <p>
-              Every week brings a new tool that promises to fix healthcare. Yet clinicians still chart late into their
-              shifts, alerts still fire at the wrong moment and promising algorithms still stall before they reach a
-              patient. The breakdown usually happens in translation, between the people who build tools and the people
-              who use them at the bedside.
+              Healthcare is evolving faster than the systems, workflows and workforce supporting it. As AI and emerging
+              technologies reshape the industry, healthcare organizations face increasing pressure to innovate, improve
+              efficiency and deliver better outcomes, often without the clinical and technical alignment needed to
+              succeed.
             </p>
+            <p className="font-medium text-ink">LAI Healthcare Solutions was founded to close that gap.</p>
             <p>
-              LAI Healthcare Solutions exists to close that gap. We bring clinical experience, research methods and
-              leadership practice together so technology decisions start with patients and the people who care for
-              them. Our aim is simple: use innovation to strengthen the human side of healthcare, not replace it.
+              We bridge healthcare and technology, translating real-world clinical challenges into actionable strategies
+              and practical solutions. By connecting clinical expertise with engineering, product and operational teams,
+              we help organizations move beyond the promise of innovation to meaningful, measurable impact.
             </p>
+            <p>Because the future of healthcare shouldn’t be built without the people who understand it.</p>
             <p>
-              The work is personal. Stephanie named LAI after her three children, a reminder that the systems we build
-              today shape the care the next generation will receive.
+              The work is personal. Stephanie named LAI after her 3 kids, a reminder that the systems we build today
+              shape the care the next generation will receive.
             </p>
           </div>
         </div>
@@ -134,7 +179,7 @@ export default function AboutPage() {
               <div className="relative overflow-hidden rounded-[2.25rem] shadow-lift">
                 <Image
                   src={founder.image}
-                  alt="Stephanie O. Frisch, PhD, MSN, RN, CEN, CCRN-K"
+                  alt={`${founder.name}, ${founder.credentials}`}
                   width={founder.imageWidth}
                   height={founder.imageHeight}
                   sizes="(min-width: 1024px) 28rem, 90vw"
@@ -148,35 +193,25 @@ export default function AboutPage() {
             <SectionLabel>Founder</SectionLabel>
             <h2 className="mt-6 text-h2">{founder.name}</h2>
             <p className="mt-3 text-lg font-medium text-brand-600">{founder.credentials}</p>
-            <div className="mt-8 space-y-5 leading-relaxed text-mist-600">
-              <p>
-                Stephanie began her nursing career in the surgical intensive care unit at the University of Chicago and
-                spent eight years in adult critical care before moving into emergency nursing. She has worked as a
-                flight nurse with STAT MedEvac, served on the nursing leadership team of a Level I adult and pediatric
-                emergency department in New York, volunteered as an EMT and worked in quality and patient safety. While
-                beginning her doctoral studies, she served as Administrator on Duty at a Level I trauma center.
-              </p>
-              <p>
-                Her research focuses on improving emergency department triage. As a Robert Wood Johnson Foundation Future
-                of Nursing Scholar at the University of Pittsburgh, with fellowship funding from the National Institute
-                of Nursing Research, she studied how machine learning could help nurses identify critically ill patients
-                and recognize time-sensitive conditions such as acute coronary syndrome and sepsis. Her postdoctoral
-                work in biomedical informatics at the University of Pittsburgh contributed to research on ECG-based
-                machine learning published in the European Heart Journal and Nature Communications.
-              </p>
-              <p>
-                That combination of frontline practice, leadership and data science shapes how LAI works. Stephanie
-                knows what a nurse needs in a crowded emergency department at three in the morning, and she knows what
-                it takes to build, validate and question a predictive model. She has also served as president of the
-                Western Pennsylvania chapter of the National Association of Hispanic Nurses.
-              </p>
+            <div className="mt-10 space-y-10">
+              {founderStory.map((part) => (
+                <div key={part.heading}>
+                  <h3 className="text-h3">{part.heading}</h3>
+                  {part.subheading && <p className="mt-2 font-medium text-brand-600">{part.subheading}</p>}
+                  <div className="mt-4 space-y-5 leading-relaxed text-mist-600">
+                    {part.paragraphs.map((p) => (
+                      <p key={p.slice(0, 32)}>{p}</p>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
 
             <blockquote className="relative mt-10 rounded-[1.5rem] border border-brand-500/15 bg-white p-8 pl-[4.5rem] shadow-soft">
               <Quote className="absolute left-6 top-7 h-8 w-8 text-brand-500" />
               <p className="font-display text-[1.35rem] leading-snug text-ink">
-                When technology and clinical reality finally speak the same language, healthcare gets faster, safer and
-                smarter.
+                LAI Healthcare Solutions exists to ensure clinical insight is not an afterthought in healthcare
+                innovation. It is part of the foundation.
               </p>
               <footer className="mt-3 text-sm text-mist-600">{founder.name}</footer>
             </blockquote>
@@ -187,13 +222,18 @@ export default function AboutPage() {
                   <Graduation className="h-5 w-5" />
                   <h3 className="text-eyebrow font-sans">Education</h3>
                 </div>
-                <ul className="mt-5 grid gap-4 sm:grid-cols-3">
+                <ul className="mt-5 grid gap-5 sm:grid-cols-2">
                   {founder.education.map((e) => (
                     <li key={e.degree}>
                       <p className="font-medium text-ink">
                         {e.degree}, {e.school}
                       </p>
-                      <p className="text-sm text-mist-600">{e.detail}</p>
+                      {e.field && <p className="text-sm font-medium text-brand-600">{e.field}</p>}
+                      {e.details.map((d) => (
+                        <p key={d} className="text-sm text-mist-600">
+                          {d}
+                        </p>
+                      ))}
                     </li>
                   ))}
                 </ul>
@@ -304,15 +344,15 @@ export default function AboutPage() {
             <SectionLabel rule>Other authored work</SectionLabel>
             <h2 className="mt-6 text-h2">Writing for clinicians, leaders and researchers</h2>
             <p className="mt-5 text-lead text-mist-600">
-              Articles on nursing and AI written for healthcare leaders, and more of the peer-reviewed research
-              Stephanie has co-authored.
+              Articles and case studies on nursing and AI written for healthcare leaders, and more of the peer-reviewed
+              research Stephanie has co-authored.
             </p>
           </div>
           <div className="mt-12 grid items-start gap-10 lg:grid-cols-2 lg:gap-8">
             <div data-reveal>
               <h3 className="flex items-center gap-3 text-eyebrow font-sans text-brand-600">
                 <Spark className="h-5 w-5" />
-                Articles &amp; commentary
+                Articles, case studies &amp; commentary
               </h3>
               <ul className="mt-5 grid gap-4">
                 {articles.map((a) => (
@@ -400,10 +440,9 @@ export default function AboutPage() {
       </section>
 
       <div className="pt-24 md:pt-32">
-        <HealthTechBand />
         <CtaSection
           title="Let’s build what your organization needs next"
-          body="Whether you are setting AI strategy, redesigning care or developing your next generation of leaders, we would like to hear what you are working on."
+          body="Whether you are setting AI strategy, building a healthcare product or redesigning care, we would like to hear what you are working on."
         />
       </div>
 

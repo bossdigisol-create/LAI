@@ -1,9 +1,9 @@
 import { renderOgImage } from "@/lib/og";
 import { getService } from "@/lib/services";
 
-const service = getService("leadership-mentorship-development");
+const service = getService("ai-translation-change-management");
 
-export const alt = "Leadership Mentorship & Development | LAI Healthcare Solutions";
+export const alt = "AI Translation & Change Management | LAI Healthcare Solutions";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

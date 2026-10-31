@@ -3,7 +3,6 @@ const legacyServiceSlugs = [
   "ai-governance-strategy",
   "clinical-analytics-informatics",
   "healthcare-ai-innovation",
-  "leadership-mentorship-development",
   "research-strategy-evidence-translation",
   "workforce-optimization",
 ];
@@ -35,6 +34,9 @@ const nextConfig = {
         destination: `/services/${slug}`,
         permanent: true,
       })),
+      // Leadership Mentorship & Development was retired as a service.
+      { source: "/leadership-mentorship-development", destination: "/services", permanent: true },
+      { source: "/services/leadership-mentorship-development", destination: "/services", permanent: true },
       { source: "/classes", destination: "/contact", permanent: true },
       { source: "/home", destination: "/", permanent: true },
       { source: "/author/:path*", destination: "/about", permanent: true },

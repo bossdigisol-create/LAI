@@ -5,15 +5,14 @@ import SectionLabel from "@/components/section-label";
 import { ButtonLink } from "@/components/button";
 import ProcessSteps from "@/components/process-steps";
 import CtaSection from "@/components/cta-section";
-import HealthTechBand from "@/components/health-tech-band";
 import { ArrowRight, Check, ServiceIcon } from "@/components/icons";
 import { services, speakingCard, serviceHref } from "@/lib/services";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Healthcare AI, Informatics & Nursing Consulting Services",
+  title: "Healthcare AI, Health Tech & Clinical Consulting Services",
   description:
-    "Clinician-led consulting services: AI governance and strategy, healthcare AI implementation, clinical analytics and informatics, workforce optimization, leadership development, research strategy and health tech start-up advisory.",
+    "Clinician-led consulting services: healthcare AI innovation, health tech and start-up advisory, AI translation and change management, clinical analytics and informatics, workforce optimization, research strategy and AI governance.",
   path: "/services",
 });
 
@@ -32,18 +31,18 @@ const engagementModels = [
   },
   {
     title: "Education and workshops",
-    body: "AI literacy, leadership development and evidence-based practice sessions for your teams.",
+    body: "AI literacy, change readiness and evidence-based practice sessions for your teams.",
   },
 ];
 
 const startingPoints = [
-  { need: "We need to govern the AI we already use", slug: "ai-governance-strategy" },
   { need: "We want to deploy a new AI tool safely", slug: "healthcare-ai-innovation" },
+  { need: "We are building a product for healthcare", slug: "health-tech-advisory" },
+  { need: "Our teams need help adopting AI", slug: "ai-translation-change-management" },
   { need: "Our data is not driving decisions", slug: "clinical-analytics-informatics" },
   { need: "Our staffing model is not working", slug: "workforce-optimization" },
-  { need: "Our leaders need more support", slug: "leadership-mentorship-development" },
   { need: "We want research to change practice", slug: "research-strategy-evidence-translation" },
-  { need: "We are building a product for healthcare", slug: "health-tech-advisory" },
+  { need: "We need to govern the AI we already use", slug: "ai-governance-strategy" },
 ];
 
 function WhereToStart() {
@@ -81,7 +80,7 @@ export default function ServicesPage() {
         breadcrumbs={[{ name: "Services", path: "/services" }]}
         eyebrow="Services"
         title="Consulting for safer, smarter, more human care"
-        intro="From AI governance to workforce design, every service is led by clinical expertise and grounded in evidence. We work with hospitals, health systems and academic medical centers, and with the healthcare tech start-ups and companies that build for them."
+        intro="From healthcare AI translation to workforce strategy to product development, every service is led by clinical expertise and grounded in evidence. We work with health systems and with the healthcare tech companies that build for them."
         aside={<WhereToStart />}
       >
         <ButtonLink href="/contact">Book a consultation</ButtonLink>
@@ -190,7 +189,6 @@ export default function ServicesPage() {
       </section>
 
       <div className="pt-24 md:pt-32">
-        <HealthTechBand />
         <CtaSection
           title="Not sure which service fits?"
           body="Tell us what you are trying to solve. We will point you to the right starting place, even if it is not us."

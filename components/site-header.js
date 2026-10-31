@@ -15,7 +15,8 @@ export default function SiteHeader({ nav, services, speaking, email, emailDispla
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-  const headerRef = useRef(null);
+  const triggerRef = useRef(null);
+  const panelRef = useRef(null);
   const hoverTimer = useRef(null);
 
   // Solid background once the page scrolls.
@@ -33,7 +34,8 @@ export default function SiteHeader({ nav, services, speaking, email, emailDispla
     };
   }, []);
 
-  // Escape closes any open menu; clicking outside closes the services panel.
+  // Escape closes any open menu. Clicking anywhere other than the services trigger or the visible panel
+  // (including the page beside the panel) closes the services panel.
   useEffect(() => {
     if (!menuOpen && !mobileOpen) return;
     const onKey = (e) => {
@@ -43,7 +45,9 @@ export default function SiteHeader({ nav, services, speaking, email, emailDispla
       }
     };
     const onPointer = (e) => {
-      if (headerRef.current && !headerRef.current.contains(e.target)) setMenuOpen(false);
+      if (triggerRef.current?.contains(e.target) || panelRef.current?.contains(e.target)) return;
+      clearTimeout(hoverTimer.current);
+      setMenuOpen(false);
     };
     document.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onPointer);
@@ -86,7 +90,7 @@ export default function SiteHeader({ nav, services, speaking, email, emailDispla
   const solid = scrolled || menuOpen;
 
   return (
-    <header ref={headerRef} className="fixed inset-x-0 top-0 z-50" style={{ viewTransitionName: "site-header" }}>
+    <header className="fixed inset-x-0 top-0 z-50" style={{ viewTransitionName: "site-header" }}>
       <div
         className={`border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ${
           mobileOpen
@@ -111,6 +115,7 @@ export default function SiteHeader({ nav, services, speaking, email, emailDispla
               item.hasMenu ? (
                 <div
                   key={item.href}
+                  ref={triggerRef}
                   className="relative flex items-center"
                   onPointerEnter={(e) => e.pointerType === "mouse" && openWithIntent()}
                   onPointerLeave={(e) => e.pointerType === "mouse" && closeWithIntent()}
@@ -173,17 +178,21 @@ export default function SiteHeader({ nav, services, speaking, email, emailDispla
         </div>
       </div>
 
-      {/* Desktop services panel */}
+      {/* Desktop services panel. The full-width wrapper ignores the pointer so the page beside the panel stays
+          clickable and hovering there counts as leaving the menu. */}
       <div
         id="services-menu"
-        onPointerEnter={(e) => e.pointerType === "mouse" && openWithIntent()}
-        onPointerLeave={(e) => e.pointerType === "mouse" && closeWithIntent()}
-        className={`absolute inset-x-0 top-full hidden transition-[opacity,transform,visibility] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] lg:block ${
+        className={`pointer-events-none absolute inset-x-0 top-full hidden transition-[opacity,transform,visibility] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] lg:block ${
           menuOpen ? "visible translate-y-0 opacity-100" : "invisible -translate-y-2 opacity-0"
         }`}
       >
         <div className="container-x">
-          <div className="mt-3 grid grid-cols-[1.6fr_1fr] gap-3 rounded-[1.75rem] border border-ink/[0.06] bg-white p-3 shadow-lift">
+          <div
+            ref={panelRef}
+            onPointerEnter={(e) => e.pointerType === "mouse" && openWithIntent()}
+            onPointerLeave={(e) => e.pointerType === "mouse" && closeWithIntent()}
+            className="pointer-events-auto mt-3 grid grid-cols-[1.6fr_1fr] gap-3 rounded-[1.75rem] border border-ink/[0.06] bg-white p-3 shadow-lift"
+          >
             <ul className="grid grid-cols-2 gap-1">
               {services.map((s) => (
                 <li key={s.slug}>
@@ -197,7 +206,7 @@ export default function SiteHeader({ nav, services, speaking, email, emailDispla
                     </span>
                     <span>
                       <span className="block font-medium leading-snug text-ink">{s.title}</span>
-                      <span className="mt-1 line-clamp-2 block text-sm leading-relaxed text-mist-600">
+                      <span className="mt-1 line-clamp-2 text-sm leading-relaxed text-mist-600">
                         {s.summary}
                       </span>
                     </span>

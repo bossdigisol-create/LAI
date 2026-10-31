@@ -217,7 +217,7 @@ export default function ServicePage({ slug }) {
         </div>
       </section>
 
-      {s.slug !== "health-tech-advisory" && <HealthTechBand />}
+      {s.healthTechBand && <HealthTechBand />}
 
       <CtaSection
         title={`Let’s talk about ${s.topic}`}

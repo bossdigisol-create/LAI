@@ -27,7 +27,7 @@ import {
   Target,
   Users,
 } from "@/components/icons";
-import { services, speakingCard, serviceHref } from "@/lib/services";
+import { homeServices, speakingCard, serviceHref } from "@/lib/services";
 import { founder, site } from "@/lib/site";
 import { pageMetadata, websiteJsonLd } from "@/lib/seo";
 
@@ -35,11 +35,12 @@ export const metadata = pageMetadata({
   title: "LAI Healthcare Solutions | Clinician-Led Healthcare AI Consulting",
   absoluteTitle: true,
   description:
-    "Clinician-led consulting for responsible healthcare AI. AI governance, clinical informatics, workforce and leadership development for health systems, plus clinical, operational and growth strategy for health tech companies.",
+    "Clinician-led consulting for healthcare companies and health systems: health tech and start-up advisory, healthcare AI innovation, AI translation and change management, clinical informatics and workforce strategy.",
   path: "/",
 });
 
 const heroPoints = [
+  "Integrate a clinical lens for research and development",
   "Integrate AI into clinical workflows",
   "Adopt AI responsibly",
   "Develop and implement change management for AI",
@@ -128,11 +129,11 @@ const audiences = [
 const homeFaqs = [
   {
     q: "What does LAI Healthcare Solutions do?",
-    a: "We are a clinician-led consulting firm. We help healthcare organizations adopt AI responsibly, strengthen clinical analytics and informatics, optimize the nursing workforce, develop leaders and translate research into practice. We also advise healthcare technology start-ups and companies with a clinical lens, operational expertise and growth strategy, and we deliver keynotes and education on these topics.",
+    a: "We are a clinician-led consulting firm. We help healthcare organizations adopt AI responsibly, strengthen clinical analytics and informatics, optimize the clinical workforce, and translate research into practice. We also advise healthcare technology start-ups and companies with a clinical lens, operational expertise and growth strategy. We deliver keynotes and education on these topics.",
   },
   {
     q: "Who founded LAI Healthcare Solutions?",
-    a: "LAI was founded by Stephanie O. Frisch, PhD, MSN, RN, CEN, CCRN-K. Stephanie is a critical care, emergency and flight nurse who became a nurse scientist, researching machine learning for emergency triage at the University of Pittsburgh.",
+    a: "LAI Healthcare Solutions was founded by Dr. Stephanie Frisch, a nurse scientist and healthcare technology executive whose career spans critical care and emergency nursing, nursing leadership, AI research, and biomedical informatics. Drawing on more than two decades of experience, she bridges clinical expertise, scientific innovation, and technology leadership to translate complex healthcare challenges into practical, impactful solutions.",
   },
   {
     q: "What difference does a clinician-led approach make?",
@@ -153,7 +154,7 @@ const homeFaqs = [
 ];
 
 export default function HomePage() {
-  const [featured, ...rest] = services;
+  const [featured, ...rest] = homeServices;
   const spans = ["lg:col-span-7", "lg:col-span-7", "lg:col-span-6", "lg:col-span-6", "lg:col-span-6", "lg:col-span-6"];
 
   return (
@@ -173,7 +174,7 @@ export default function HomePage() {
             </h1>
             <div className="rise-in mt-7 max-w-xl" style={{ "--d": "170ms" }}>
               <p className="text-lead text-mist-600">
-                We help hospitals, health systems and academic medical centers make informed decisions to:
+                We help healthcare companies and health systems make informed decisions to:
               </p>
               <ul className="mt-5 grid gap-3">
                 {heroPoints.map((point) => (
@@ -195,8 +196,17 @@ export default function HomePage() {
               </ButtonLink>
             </div>
             <p className="rise-in mt-12 max-w-xl border-l-2 border-brand-500/40 pl-5 text-[0.95rem] leading-relaxed text-mist-600" style={{ "--d": "330ms" }}>
-              Founded by <span className="font-medium text-ink">{founder.name}, {founder.credentials}</span>, a
-              critical care and emergency nurse turned AI researcher.
+              Founded by{" "}
+              <a
+                href={founder.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline font-medium text-ink hover:text-brand-600"
+              >
+                {founder.name}
+                <span className="sr-only"> on LinkedIn (opens in a new tab)</span>
+              </a>
+              , a critical care &amp; emergency nurse &amp; AI researcher turned founder.
             </p>
           </div>
           <HeroPortrait />
@@ -294,7 +304,7 @@ export default function HomePage() {
                 ))}
               </ul>
               <span className="mt-auto inline-flex items-center gap-2 pt-10 text-sm font-medium text-azure-300">
-                Explore AI governance
+                Explore {featured.topic}
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </span>
             </Link>
@@ -343,64 +353,13 @@ export default function HomePage() {
             <SectionLabel tone="azure">How we work</SectionLabel>
             <h2 className="mt-6 text-h2 text-pearl">A clear path from question to measurable result</h2>
             <p className="mt-5 text-lead text-mist-300">
-              Every engagement is scoped to your goals. The discipline behind it stays the same.
+              Every engagement is scoped to your goals. The discipline behind it stays the same. We understand that
+              every project is different, so we meet you where you are on your path and design the project around
+              it.
             </p>
           </div>
           <div className="mt-14">
             <ProcessSteps steps={approach} dark />
-          </div>
-        </div>
-      </section>
-
-      {/* Founder */}
-      <section className="section-y relative overflow-hidden">
-        <div className="container-x grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-          <div data-reveal className="relative mx-auto w-full max-w-md">
-            <div aria-hidden="true" className="absolute -inset-4 rotate-3 rounded-[2.5rem] bg-brand-500" />
-            <div className="relative overflow-hidden rounded-[2.25rem] shadow-lift">
-              <Image
-                src={founder.image}
-                alt="Portrait of Stephanie O. Frisch"
-                width={founder.imageWidth}
-                height={founder.imageHeight}
-                sizes="(min-width: 1024px) 28rem, 90vw"
-                className="aspect-[4/4.4] h-auto w-full object-cover object-top"
-              />
-            </div>
-            <div className="absolute -bottom-6 -right-2 rounded-2xl bg-white px-5 py-4 shadow-lift sm:-right-8">
-              <p className="font-display text-3xl leading-none text-brand-500">PhD</p>
-              <p className="mt-1 text-xs text-mist-600">University of Pittsburgh</p>
-            </div>
-          </div>
-
-          <div data-reveal style={{ "--d": "120ms" }}>
-            <SectionLabel>Meet the founder</SectionLabel>
-            <h2 className="mt-6 text-h2">Built by a clinician who has worked on both sides of the algorithm</h2>
-            <div className="mt-6 space-y-5 leading-relaxed text-mist-600">
-              <p>
-                Stephanie O. Frisch began her career in the surgical ICU and went on to work in emergency departments,
-                as a flight nurse and in nursing leadership for Level I emergency and trauma programs. Those years
-                showed her how quickly decisions are made at the bedside, and how much they depend on the right
-                information arriving at the right moment.
-              </p>
-              <p>
-                As a nurse scientist at the University of Pittsburgh, she studied how machine learning could help
-                triage nurses recognize critically ill patients sooner. She saw how much these tools could offer, and
-                how often they faltered for lack of clinical insight. LAI exists to close that gap.
-              </p>
-            </div>
-            <blockquote className="relative mt-9 rounded-[1.5rem] bg-brand-50 p-7 pl-16">
-              <Quote className="absolute left-5 top-6 h-8 w-8 text-brand-500" />
-              <p className="font-display text-[1.35rem] leading-snug text-ink">
-                Healthcare doesn’t have a technology problem. It has a translation problem.
-              </p>
-              <footer className="mt-3 text-sm text-mist-600">{founder.name}</footer>
-            </blockquote>
-            <div className="mt-9">
-              <ButtonLink href="/about" variant="dark">
-                Read Stephanie’s story
-              </ButtonLink>
-            </div>
           </div>
         </div>
       </section>
@@ -468,6 +427,64 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Founder */}
+      <section className="section-y relative overflow-hidden bg-white">
+        <div className="container-x grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          <div data-reveal className="relative mx-auto w-full max-w-md">
+            <div aria-hidden="true" className="absolute -inset-4 rotate-3 rounded-[2.5rem] bg-brand-500" />
+            <div className="relative overflow-hidden rounded-[2.25rem] shadow-lift">
+              <Image
+                src={founder.image}
+                alt={`Portrait of ${founder.name}`}
+                width={founder.imageWidth}
+                height={founder.imageHeight}
+                sizes="(min-width: 1024px) 28rem, 90vw"
+                className="aspect-[4/4.4] h-auto w-full object-cover object-top"
+              />
+            </div>
+            <div className="absolute -bottom-6 -right-2 rounded-2xl bg-white px-5 py-4 shadow-lift sm:-right-8">
+              <p className="font-display text-3xl leading-none text-brand-500">PhD</p>
+              <p className="mt-1 text-xs text-mist-600">University of Pittsburgh</p>
+            </div>
+          </div>
+
+          <div data-reveal style={{ "--d": "120ms" }}>
+            <SectionLabel>Meet the founder</SectionLabel>
+            <h2 className="mt-6 text-h2">Built by a clinician who has worked on both sides of the algorithm</h2>
+            <div className="mt-6 space-y-5 leading-relaxed text-mist-600">
+              <p>
+                Stephanie Frisch began at the bedside in critical care, emergency and flight nursing and evolved into
+                nursing leadership. She expanded into nurse-led AI research and biomedical informatics. From developing
+                predictive algorithms to leading cross-functional teams in healthcare technology, she built a career
+                translating clinical complexity into innovative, practical solutions.
+              </p>
+              <p className="font-medium text-ink">Stephanie speaks both languages: healthcare and technology.</p>
+              <p>
+                LAI Healthcare Solutions exists to bridge the gap between clinical reality and technological
+                innovation, ensuring that the solutions we build are informed by the people, workflows and challenges
+                they are designed to support.
+              </p>
+            </div>
+            <blockquote className="relative mt-9 rounded-[1.5rem] bg-brand-50 p-7 pl-16">
+              <Quote className="absolute left-5 top-6 h-8 w-8 text-brand-500" />
+              <p className="font-display text-[1.35rem] leading-snug text-ink">
+                Healthcare doesn’t have a technology problem. It has a translation problem.
+              </p>
+              <footer className="mt-3 text-sm text-mist-600">{founder.name}</footer>
+            </blockquote>
+            <div className="mt-9">
+              <ButtonLink href="/about" variant="dark">
+                Read Stephanie’s story
+              </ButtonLink>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="pt-24 md:pt-32">
+        <HealthTechBand />
+      </div>
+
       {/* Speaking */}
       <section className="relative isolate overflow-hidden bg-brand-950 text-pearl">
         <div aria-hidden="true" className="band-azure -z-10 opacity-[0.12]" />
@@ -476,9 +493,9 @@ export default function HomePage() {
             <SectionLabel tone="azure">Speaking</SectionLabel>
             <h2 className="mt-6 text-h2 text-pearl">Bring evidence-based clarity to your next event</h2>
             <p className="mt-6 text-lead text-mist-300">
-              Stephanie speaks to nursing, executive and academic audiences about responsible AI, the future of the
-              clinical workforce and leading through change. Every talk is grounded in research and real clinical
-              experience, and tailored to the room.
+              Stephanie speaks to nursing, healthcare innovation, executive and academic audiences about the future of
+              the clinical workforce, leading through change and the shared responsibility of shaping healthcare’s
+              future. Every talk is grounded in research and real clinical experience, and tailored to the room.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <ButtonLink href="/speaking" variant="light">
@@ -510,8 +527,6 @@ export default function HomePage() {
       </section>
 
       <Faq items={homeFaqs} intro="Short answers to the questions healthcare leaders ask us most." />
-
-      <HealthTechBand />
 
       <CtaSection />
 

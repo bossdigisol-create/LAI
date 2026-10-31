@@ -21,7 +21,8 @@ const pillars = [
   },
 ];
 
-// Appears on every main page so healthcare companies know LAI consults for them, not only for providers.
+// Shown on the home page and on service pages flagged with `healthTechBand`, so healthcare companies know LAI
+// consults for them too, without repeating it at the bottom of every page.
 export default function HealthTechBand() {
   return (
     <section className="pb-24 md:pb-32">

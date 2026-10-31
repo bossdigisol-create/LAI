@@ -1,16 +1,15 @@
 import PageTransition from "@/components/page-transition";
 import PageHero from "@/components/page-hero";
 import ContactForm from "@/components/contact-form";
-import HealthTechBand from "@/components/health-tech-band";
 import EmailText from "@/components/email-text";
-import { ArrowUpRight, Calendar, Instagram, LinkedIn, Mail } from "@/components/icons";
+import { ArrowUpRight, Calendar, LinkedIn, Mail } from "@/components/icons";
 import { inquiryReasons, site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Contact Us | Book a Consultation",
   description:
-    "Contact LAI Healthcare Solutions to discuss AI governance, clinical informatics, workforce optimization, leadership development, research strategy, health tech advisory or a speaking engagement.",
+    "Contact LAI Healthcare Solutions to discuss healthcare AI, health tech advisory, AI translation and change management, clinical informatics, workforce optimization, research strategy or a speaking engagement.",
   path: "/contact",
 });
 
@@ -91,15 +90,6 @@ export default function ContactPage() {
                   <LinkedIn className="h-[1.05rem] w-[1.05rem]" />
                   <span className="sr-only">LinkedIn (opens in a new tab)</span>
                 </a>
-                <a
-                  href={site.social.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="grid h-11 w-11 place-items-center rounded-full border border-ink/10 text-ink transition-colors hover:border-brand-500 hover:bg-brand-500 hover:text-white"
-                >
-                  <Instagram className="h-5 w-5" />
-                  <span className="sr-only">Instagram (opens in a new tab)</span>
-                </a>
               </div>
             </div>
 
@@ -122,8 +112,6 @@ export default function ContactPage() {
           </aside>
         </div>
       </section>
-
-      <HealthTechBand />
     </PageTransition>
   );
 }

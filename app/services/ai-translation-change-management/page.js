@@ -1,6 +1,6 @@
 import ServicePage, { serviceMetadata } from "@/components/service-page";
 
-const slug = "leadership-mentorship-development";
+const slug = "ai-translation-change-management";
 
 export const metadata = serviceMetadata(slug);
 

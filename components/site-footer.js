@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Logo } from "./logo";
 import EmailText from "./email-text";
-import { ArrowUpRight, Calendar, Instagram, LinkedIn, Mail } from "./icons";
+import { ArrowUpRight, Calendar, LinkedIn, Mail } from "./icons";
 import { services } from "@/lib/services";
 import { site } from "@/lib/site";
 
@@ -23,11 +23,8 @@ export default function SiteFooter() {
             <Link href="/" className="inline-block text-pearl" aria-label="LAI Healthcare Solutions, home">
               <Logo className="h-9 w-auto" title="LAI Healthcare Solutions" />
             </Link>
-            <p className="mt-6 text-[0.95rem] leading-relaxed text-mist-300">
-              Clinician-led consulting for health systems and healthcare companies: responsible AI, stronger clinical
-              systems, growth strategy and the leaders who make change last.
-            </p>
-            <p className="mt-6 font-display text-xl leading-snug text-pearl">{site.tagline}</p>
+            <p className="mt-6 font-display text-xl leading-snug text-pearl">{site.footerLines[0]}</p>
+            <p className="mt-3 text-[0.95rem] leading-relaxed text-mist-300">{site.footerLines[1]}</p>
           </div>
 
           <div className="grid gap-10 sm:grid-cols-3">
@@ -95,15 +92,6 @@ export default function SiteFooter() {
                   >
                     <LinkedIn className="h-[1.05rem] w-[1.05rem]" />
                     <span className="sr-only">LinkedIn (opens in a new tab)</span>
-                  </a>
-                  <a
-                    href={site.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="grid h-11 w-11 place-items-center rounded-full border border-pearl/15 text-pearl transition-colors hover:border-azure-300 hover:bg-azure-300 hover:text-ink"
-                  >
-                    <Instagram className="h-5 w-5" />
-                    <span className="sr-only">Instagram (opens in a new tab)</span>
                   </a>
                 </li>
               </ul>

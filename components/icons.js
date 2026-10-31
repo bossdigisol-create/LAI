@@ -223,14 +223,6 @@ export const LinkedIn = (p) => (
   </svg>
 );
 
-export const Instagram = (p) => (
-  <Svg {...p}>
-    <rect x="3" y="3" width="18" height="18" rx="5" />
-    <circle cx="12" cy="12" r="4" />
-    <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" />
-  </Svg>
-);
-
 const serviceIcons = {
   shield: Shield,
   spark: Spark,

@@ -12,7 +12,7 @@ export default function HeroPortrait() {
       <div className="relative overflow-hidden rounded-[2.25rem] bg-brand-100 shadow-lift">
         <Image
           src={founder.image}
-          alt="Stephanie O. Frisch, PhD, RN, founder of LAI Healthcare Solutions"
+          alt={`${founder.name}, PhD, RN, founder of LAI Healthcare Solutions`}
           width={founder.imageWidth}
           height={founder.imageHeight}
           sizes="(min-width: 1024px) 30rem, (min-width: 640px) 26rem, 90vw"

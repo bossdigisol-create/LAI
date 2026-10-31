@@ -2,7 +2,7 @@ import { services } from "@/lib/services";
 import { founder, site } from "@/lib/site";
 
 // Update when page content changes materially.
-const LAST_UPDATED = "2026-10-19";
+const LAST_UPDATED = "2026-11-01";
 
 const absolute = (path) => new URL(path, site.url).toString();
 
