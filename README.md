@@ -99,8 +99,6 @@ variations through CSS. Standalone files are in `public/brand/`.
   calendar once she confirms it. It is the single link used for consultations and speaking requests site-wide.
 - Swap in the updated founder photo when Stephanie provides it (`public/images/`, referenced by `founder.image` in
   `lib/site.js`).
-- Replace `founder.linkedin` in `lib/site.js` with Stephanie's personal LinkedIn profile URL. The "Founded by" link on
-  the home page points to the LAI company page until then.
 - Review the copy for the new AI Translation & Change Management service (`lib/services.js`), drafted from the
   client's feedback.
 - Review the "Other authored work" list on the About page (`articles` and `otherPublications` in `lib/site.js`).
