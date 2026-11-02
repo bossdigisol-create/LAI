@@ -12,7 +12,8 @@ informatics, workforce optimization, research strategy and AI governance. Rebuil
 - **Tailwind CSS v4** with brand tokens in `app/globals.css`.
 - **Lenis** for smooth wheel scrolling, React `<ViewTransition>` for page transitions and a lightweight
   IntersectionObserver for scroll reveals. All motion respects `prefers-reduced-motion`.
-- Contact form built on a Server Action that sends email through the Resend HTTP API.
+- Contact form built on a Server Action that sends email through Microsoft Graph (the client's Microsoft 365
+  account), with the Resend HTTP API as an optional fallback (`lib/mailer.js`).
 
 ## Getting started
 
@@ -29,13 +30,22 @@ Other scripts: `npm run build`, `npm run start`, `npm run lint`.
 | Variable | Purpose |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical site URL used in metadata, sitemap and structured data. Defaults to `https://www.laihealthcaresolutions.com`. |
-| `RESEND_API_KEY` | API key from [Resend](https://resend.com) for contact form delivery. |
-| `CONTACT_TO_EMAIL` | Inbox that receives contact form messages. Defaults to `hello@laihealthcaresolutions.com`. |
-| `CONTACT_FROM_EMAIL` | Sender address on a domain verified in Resend. |
+| `MS_TENANT_ID` | Microsoft Entra tenant (directory) ID. With the next two set, the contact form sends through Microsoft Graph. |
+| `MS_CLIENT_ID` | Application (client) ID of the Entra app registration that has the `Mail.Send` application permission. |
+| `MS_CLIENT_SECRET` | Client secret of that app registration. Secret: set it in Vercel only, never in a committed file. |
+| `MAIL_SENDER_UPN` | Shared mailbox the form sends from (`lai-website@elevatelogisticsolutions.com`, display name "LAI Healthcare Solutions"). Never the recipient's own mailbox: Outlook files self-sent mail under "Note to self". |
+| `MAIL_TO` | Inbox that receives contact form messages (`stephanie@elevatelogisticsolutions.com`). Falls back to `CONTACT_TO_EMAIL`, then `hello@laihealthcaresolutions.com`. |
+| `RESEND_API_KEY` | Optional fallback. API key from [Resend](https://resend.com), used only when the Microsoft Graph variables are not set. |
+| `CONTACT_TO_EMAIL` | Optional fallback. Inbox that receives contact form messages when `MAIL_TO` is not set. |
+| `CONTACT_FROM_EMAIL` | Optional fallback. Resend sender address on a domain verified in Resend. |
 
-Without `RESEND_API_KEY`, the contact form logs submissions to the server console in development and shows visitors
-a "please email us directly" message in production. **Verify the sending domain in Resend before launch**, otherwise
-messages will not be delivered.
+The contact form uses Microsoft Graph when `MS_TENANT_ID`, `MS_CLIENT_ID` and `MS_CLIENT_SECRET` are all set, and
+Resend when only `RESEND_API_KEY` is set. With neither, it logs submissions to the server console in development and
+shows visitors a "please email us directly" message in production. Delivery failures are logged with the `[contact]`
+prefix and include the provider's status code and error text (for example Microsoft's `ErrorAccessDenied`).
+
+Messages arrive with the subject `LAI website inquiry: <topic> (<visitor name>)`, and Reply-To is set to the
+visitor's email address.
 
 ## Where to edit content
 

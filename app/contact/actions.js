@@ -1,5 +1,6 @@
 "use server";
 
+import { mailBackend, sendMail } from "@/lib/mailer";
 import { inquiryReasons, site } from "@/lib/site";
 
 const LIMITS = { name: 120, email: 200, organization: 160, role: 120, phone: 40, reason: 80, message: 5000 };
@@ -13,8 +14,8 @@ const clean = (value, max) =>
 const escapeHtml = (value) =>
   value.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-// Handles the contact form. Validates on the server, filters obvious bots and sends the message
-// to the inbox configured in CONTACT_TO_EMAIL through Resend's HTTP API.
+// Handles the contact form. Validates on the server, filters obvious bots and sends the message to the inbox in
+// MAIL_TO (or CONTACT_TO_EMAIL) through Microsoft Graph, or through Resend as a fallback (see lib/mailer.js).
 export async function submitContact(_previousState, formData) {
   // Honeypot field and a minimum fill time catch most automated submissions.
   // Bots are told the message was sent so they do not retry.
@@ -42,16 +43,12 @@ export async function submitContact(_previousState, formData) {
     return { status: "error", message: "Please check the highlighted fields and try again.", errors, values };
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL || site.email;
-  const from = process.env.CONTACT_FROM_EMAIL || "LAI Healthcare Solutions <onboarding@resend.dev>";
-
-  if (!apiKey) {
+  if (!mailBackend()) {
     if (process.env.NODE_ENV !== "production") {
-      console.info("[contact] RESEND_API_KEY is not set, so this submission was logged instead of emailed:", values);
+      console.info("[contact] No email backend is configured, so this submission was logged instead of emailed:", values);
       return { status: "success" };
     }
-    console.error("[contact] RESEND_API_KEY is not set. The message could not be delivered.");
+    console.error("[contact] No email backend is configured (Microsoft Graph or Resend). The message could not be delivered.");
     return {
       status: "error",
       message: `We couldn't send your message just now. Please email us directly at ${site.emailDisplay}.`,
@@ -75,24 +72,17 @@ export async function submitContact(_previousState, formData) {
   )}</p>`;
 
   try {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        reply_to: values.email,
-        subject: `Website inquiry: ${values.reason} (${values.name})`,
-        text,
-        html,
-      }),
+    await sendMail({
+      to: process.env.MAIL_TO || process.env.CONTACT_TO_EMAIL || site.email,
+      replyTo: { name: values.name, address: values.email },
+      // The "LAI" prefix keeps these leads apart from Elevate's in the same inbox.
+      subject: `LAI website inquiry: ${values.reason} (${values.name})`,
+      text,
+      html,
     });
-    if (!response.ok) {
-      console.error("[contact] Resend rejected the message:", response.status, await response.text());
-      throw new Error("Email provider error");
-    }
     return { status: "success" };
-  } catch {
+  } catch (error) {
+    console.error("[contact] The message could not be sent:", error.message);
     return {
       status: "error",
       message: `Something went wrong while sending your message. Please try again, or email us at ${site.emailDisplay}.`,
