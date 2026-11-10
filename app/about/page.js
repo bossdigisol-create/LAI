@@ -7,7 +7,8 @@ import CtaSection from "@/components/cta-section";
 import JsonLd from "@/components/json-ld";
 import { LogoMark } from "@/components/logo";
 import { ArrowUpRight, Book, Check, Graduation, HeartPulse, Quote, Shield, Spark } from "@/components/icons";
-import { articles, founder, otherPublications, publications, site } from "@/lib/site";
+import { articles, founder, otherPublications, publications, rwjfThreeYearPhdPaperUrl, site } from "@/lib/site";
+import LinkedText from "@/components/linked-text";
 import { founderJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -32,7 +33,10 @@ const founderStory = [
   {
     heading: "Advancing healthcare through nursing science and AI",
     paragraphs: [
-      "Driven by a desire to improve early recognition of critical illness, Stephanie pursued her PhD in Nursing Science at the University of Pittsburgh, where she was selected as a Robert Wood Johnson Foundation (RWJF) Future of Nursing Scholar and received predoctoral and postdoctoral research funding.",
+      {
+        text: "Driven by a desire to improve early recognition of critical illness, Stephanie pursued her PhD in Nursing Science at the University of Pittsburgh, where she was selected as a Robert Wood Johnson Foundation (RWJF) Future of Nursing Scholar and received predoctoral and postdoctoral research funding.",
+        links: [{ text: "Future of Nursing Scholar", href: rwjfThreeYearPhdPaperUrl }],
+      },
       "Her doctoral research was supported by a competitive fellowship from the National Institutes of Health’s National Institute of Nursing Research (NINR), funding her development of predictive machine learning algorithms designed to identify critically ill patients and recognize time-sensitive conditions, including acute coronary syndrome, at emergency department arrival.",
       "Following her doctoral training, Stephanie completed an RWJF-funded postdoctoral fellowship in biomedical informatics at the University of Pittsburgh School of Medicine. Her research focused on applying natural language processing (NLP) and machine learning to validate a predictive tool for identifying acute coronary syndrome at emergency department triage, using clinical documentation and objective patient data.",
       "This work strengthened her expertise in artificial intelligence, predictive analytics, clinical data science and translating complex research into solutions with practical clinical applications.",
@@ -199,9 +203,14 @@ export default function AboutPage() {
                   <h3 className="text-h3">{part.heading}</h3>
                   {part.subheading && <p className="mt-2 font-medium text-brand-600">{part.subheading}</p>}
                   <div className="mt-4 space-y-5 leading-relaxed text-mist-600">
-                    {part.paragraphs.map((p) => (
-                      <p key={p.slice(0, 32)}>{p}</p>
-                    ))}
+                    {part.paragraphs.map((p) => {
+                      const para = typeof p === "string" ? { text: p } : p;
+                      return (
+                        <p key={para.text.slice(0, 32)}>
+                          <LinkedText text={para.text} links={para.links} />
+                        </p>
+                      );
+                    })}
                   </div>
                 </div>
               ))}
@@ -388,7 +397,7 @@ export default function AboutPage() {
                 {otherPublications.map((p) => (
                   <li key={p.doi}>
                     <a
-                      href={`https://doi.org/${p.doi}`}
+                      href={p.url ?? `https://doi.org/${p.doi}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group block rounded-[1.5rem] border border-ink/[0.07] bg-white p-6 transition-[border-color,box-shadow,transform] duration-500 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-soft md:p-7"

@@ -1,5 +1,6 @@
 import SectionLabel from "./section-label";
 import JsonLd from "./json-ld";
+import LinkedText from "./linked-text";
 import { Plus } from "./icons";
 import { faqJsonLd } from "@/lib/seo";
 
@@ -31,7 +32,9 @@ export default function Faq({
                   <Plus className="h-4 w-4" />
                 </span>
               </summary>
-              <p className="pb-7 pr-4 leading-relaxed text-mist-600 md:pr-16">{f.a}</p>
+              <p className="pb-7 pr-4 leading-relaxed text-mist-600 md:pr-16">
+                <LinkedText text={f.a} links={f.links} />
+              </p>
             </details>
           ))}
         </div>

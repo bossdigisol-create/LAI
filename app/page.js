@@ -150,6 +150,10 @@ const homeFaqs = [
   {
     q: "How do we get started?",
     a: "Book a consultation or send a note through our contact form. We will set up an initial conversation to understand your goals and then recommend a scope that fits.",
+    links: [
+      { text: "Book a consultation", href: site.bookingUrl },
+      { text: "contact form", href: "/contact" },
+    ],
   },
 ];
 
