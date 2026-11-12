@@ -182,10 +182,10 @@ export default function AboutPage() {
               <div aria-hidden="true" className="absolute -inset-4 -rotate-3 rounded-[2.5rem] bg-azure-300/70" />
               <div className="relative overflow-hidden rounded-[2.25rem] shadow-lift">
                 <Image
-                  src={founder.image}
+                  src={founder.portraits.about.src}
                   alt={`${founder.name}, ${founder.credentials}`}
-                  width={founder.imageWidth}
-                  height={founder.imageHeight}
+                  width={founder.portraits.about.width}
+                  height={founder.portraits.about.height}
                   sizes="(min-width: 1024px) 28rem, 90vw"
                   className="h-auto w-full"
                 />

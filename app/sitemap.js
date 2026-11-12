@@ -11,8 +11,8 @@ export default function sitemap() {
     { path: "/", priority: 1 },
     { path: "/services", priority: 0.9 },
     ...services.map((s) => ({ path: `/services/${s.slug}`, priority: 0.8 })),
-    { path: "/about", priority: 0.8, images: [absolute(founder.image)] },
-    { path: "/speaking", priority: 0.8, images: [absolute(founder.image)] },
+    { path: "/about", priority: 0.8, images: [absolute(founder.portraits.about.src)] },
+    { path: "/speaking", priority: 0.8, images: [absolute(founder.portraits.speaking.src)] },
     { path: "/contact", priority: 0.7 },
     { path: "/legal", priority: 0.2, changeFrequency: "yearly" },
   ];

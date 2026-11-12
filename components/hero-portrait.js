@@ -11,10 +11,10 @@ export default function HeroPortrait() {
 
       <div className="relative overflow-hidden rounded-[2.25rem] bg-brand-100 shadow-lift">
         <Image
-          src={founder.image}
+          src={founder.portraits.hero.src}
           alt={`${founder.name}, PhD, RN, founder of LAI Healthcare Solutions`}
-          width={founder.imageWidth}
-          height={founder.imageHeight}
+          width={founder.portraits.hero.width}
+          height={founder.portraits.hero.height}
           sizes="(min-width: 1024px) 30rem, (min-width: 640px) 26rem, 90vw"
           loading="eager"
           fetchPriority="high"

@@ -160,10 +160,10 @@ export default function SpeakingPage() {
             <div aria-hidden="true" className="absolute -inset-4 rotate-3 rounded-[2.5rem] bg-brand-500" />
             <div className="relative overflow-hidden rounded-[2.25rem] shadow-lift">
               <Image
-                src={founder.image}
+                src={founder.portraits.speaking.src}
                 alt={`Keynote speaker ${founder.name}, PhD, RN`}
-                width={founder.imageWidth}
-                height={founder.imageHeight}
+                width={founder.portraits.speaking.width}
+                height={founder.portraits.speaking.height}
                 sizes="(min-width: 1024px) 28rem, 90vw"
                 className="h-auto w-full"
               />

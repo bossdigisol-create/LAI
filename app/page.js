@@ -438,10 +438,10 @@ export default function HomePage() {
             <div aria-hidden="true" className="absolute -inset-4 rotate-3 rounded-[2.5rem] bg-brand-500" />
             <div className="relative overflow-hidden rounded-[2.25rem] shadow-lift">
               <Image
-                src={founder.image}
+                src={founder.portraits.homeFounder.src}
                 alt={`Portrait of ${founder.name}`}
-                width={founder.imageWidth}
-                height={founder.imageHeight}
+                width={founder.portraits.homeFounder.width}
+                height={founder.portraits.homeFounder.height}
                 sizes="(min-width: 1024px) 28rem, 90vw"
                 className="aspect-[4/4.4] h-auto w-full object-cover object-top"
               />
