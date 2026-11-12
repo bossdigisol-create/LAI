@@ -57,8 +57,8 @@ export default function ContactForm({ reasons, bookingUrl }) {
         </span>
         <h2 className="mt-8 text-h3">Thank you. Your message is on its way.</h2>
         <p className="mx-auto mt-4 max-w-md leading-relaxed text-mist-600">
-          We will review the details you shared and follow up with next steps. If you would rather talk sooner, choose
-          a time that suits you.
+          {state.confirmationSent && "We have emailed you a confirmation. "}We will review the details you shared and
+          follow up with next steps. If you would rather talk sooner, choose a time that suits you.
         </p>
         <a
           href={bookingUrl}

@@ -1,5 +1,6 @@
 "use server";
 
+import { confirmationEmail, inquiryEmail, logoAttachment } from "@/lib/email-templates";
 import { mailBackend, sendMail } from "@/lib/mailer";
 import { inquiryReasons, site } from "@/lib/site";
 
@@ -11,11 +12,9 @@ const clean = (value, max) =>
     .trim()
     .slice(0, max);
 
-const escapeHtml = (value) =>
-  value.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-
-// Handles the contact form. Validates on the server, filters obvious bots and sends the message to the inbox in
-// MAIL_TO (or CONTACT_TO_EMAIL) through Microsoft Graph, or through Resend as a fallback (see lib/mailer.js).
+// Handles the contact form. Validates on the server, filters obvious bots, sends the inquiry to the inbox in MAIL_TO
+// (or CONTACT_TO_EMAIL) and then a confirmation to the visitor, through Microsoft Graph or through Resend as a
+// fallback (see lib/mailer.js). Email layouts live in lib/email-templates.js.
 export async function submitContact(_previousState, formData) {
   // Honeypot field and a minimum fill time catch most automated submissions.
   // Bots are told the message was sent so they do not retry.
@@ -56,37 +55,43 @@ export async function submitContact(_previousState, formData) {
     };
   }
 
-  const rows = [
-    ["Name", values.name],
-    ["Email", values.email],
-    ["Organization", values.organization || "Not provided"],
-    ["Role", values.role || "Not provided"],
-    ["Phone", values.phone || "Not provided"],
-    ["Topic", values.reason],
-  ];
-  const text = `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nMessage:\n${values.message}`;
-  const html = `<table cellpadding="6" style="font-family:Arial,sans-serif;font-size:14px;color:#171a18">${rows
-    .map(([k, v]) => `<tr><td style="color:#535c57"><strong>${k}</strong></td><td>${escapeHtml(v)}</td></tr>`)
-    .join("")}</table><p style="font-family:Arial,sans-serif;font-size:14px;color:#171a18;white-space:pre-wrap">${escapeHtml(
-    values.message
-  )}</p>`;
+  const submittedAt = `${new Date().toLocaleString("en-US", {
+    timeZone: "America/New_York",
+    dateStyle: "long",
+    timeStyle: "short",
+  })} ET`;
 
+  // 1. The inquiry, delivered to Stephanie's Outlook inbox. Reply-To is the visitor, so pressing Reply answers them.
   try {
+    const inquiry = inquiryEmail(values, submittedAt);
     await sendMail({
       to: process.env.MAIL_TO || process.env.CONTACT_TO_EMAIL || site.email,
       replyTo: { name: values.name, address: values.email },
-      // The "LAI" prefix keeps these leads apart from Elevate's in the same inbox.
-      subject: `LAI website inquiry: ${values.reason} (${values.name})`,
-      text,
-      html,
+      ...inquiry,
+      attachments: [logoAttachment],
     });
-    return { status: "success" };
   } catch (error) {
-    console.error("[contact] The message could not be sent:", error.message);
+    console.error("[contact] The inquiry could not be sent:", error.message);
     return {
       status: "error",
       message: `Something went wrong while sending your message. Please try again, or email us at ${site.emailDisplay}.`,
       values,
     };
+  }
+
+  // 2. The automatic confirmation to the visitor, from the no-reply mailbox. Replies go to hello@. The inquiry has
+  // already arrived, so a failure here is logged without telling the visitor their message failed.
+  try {
+    const confirmation = confirmationEmail(values);
+    await sendMail({
+      to: { name: values.name, address: values.email },
+      replyTo: { name: site.name, address: site.email },
+      ...confirmation,
+      attachments: [logoAttachment],
+    });
+    return { status: "success", confirmationSent: true };
+  } catch (error) {
+    console.error("[contact] The confirmation to the visitor could not be sent:", error.message);
+    return { status: "success" };
   }
 }

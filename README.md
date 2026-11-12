@@ -12,8 +12,8 @@ informatics, workforce optimization, research strategy and AI governance. Rebuil
 - **Tailwind CSS v4** with brand tokens in `app/globals.css`.
 - **Lenis** for smooth wheel scrolling, React `<ViewTransition>` for page transitions and a lightweight
   IntersectionObserver for scroll reveals. All motion respects `prefers-reduced-motion`.
-- Contact form built on a Server Action that sends email through Microsoft Graph (the client's Microsoft 365
-  account), with the Resend HTTP API as an optional fallback (`lib/mailer.js`).
+- Contact form built on a Server Action that sends the inquiry and a confirmation to the visitor through Microsoft
+  Graph (the client's Microsoft 365 account), with the Resend HTTP API as an optional fallback (`lib/mailer.js`).
 
 ## Getting started
 
@@ -33,7 +33,7 @@ Other scripts: `npm run build`, `npm run start`, `npm run lint`.
 | `MS_TENANT_ID` | Microsoft Entra tenant (directory) ID. With the next two set, the contact form sends through Microsoft Graph. |
 | `MS_CLIENT_ID` | Application (client) ID of the Entra app registration that has the `Mail.Send` application permission. |
 | `MS_CLIENT_SECRET` | Client secret of that app registration. Secret: set it in Vercel only, never in a committed file. |
-| `MAIL_SENDER_UPN` | Shared mailbox the form sends from (`lai-website@elevatelogisticsolutions.com`, display name "LAI Healthcare Solutions"). Never the recipient's own mailbox: Outlook files self-sent mail under "Note to self". |
+| `MAIL_SENDER_UPN` | Shared mailbox the form sends from (`noreply@laihealthcaresolutions.com`, display name "LAI Healthcare Solutions"). It sends the inquiry and the visitor's confirmation. Never the recipient's own mailbox: Outlook files self-sent mail under "Note to self". |
 | `MAIL_TO` | Inbox that receives contact form messages (`stephanie@elevatelogisticsolutions.com`). Falls back to `CONTACT_TO_EMAIL`, then `hello@laihealthcaresolutions.com`. |
 | `RESEND_API_KEY` | Optional fallback. API key from [Resend](https://resend.com), used only when the Microsoft Graph variables are not set. |
 | `CONTACT_TO_EMAIL` | Optional fallback. Inbox that receives contact form messages when `MAIL_TO` is not set. |
@@ -44,8 +44,17 @@ Resend when only `RESEND_API_KEY` is set. With neither, it logs submissions to t
 shows visitors a "please email us directly" message in production. Delivery failures are logged with the `[contact]`
 prefix and include the provider's status code and error text (for example Microsoft's `ErrorAccessDenied`).
 
-Messages arrive with the subject `LAI website inquiry: <topic> (<visitor name>)`, and Reply-To is set to the
-visitor's email address.
+Each submission sends two emails, laid out in `lib/email-templates.js`:
+
+1. The inquiry to `MAIL_TO`, with the subject `[LAI Website] New inquiry: <topic> (<visitor name>)` and Reply-To set
+   to the visitor's email address.
+2. A confirmation to the visitor, with the subject `We received your message | LAI Healthcare Solutions` and Reply-To
+   set to `hello@laihealthcaresolutions.com`. It repeats none of the visitor's message, so the form can't be used to
+   send arbitrary text to other people. If only the confirmation fails, the visitor still sees success.
+
+`hello@laihealthcaresolutions.com` is an alias of Stephanie's Elevate mailbox, and `noreply@` is a shared mailbox in
+the same Microsoft 365 tenant. The one-time Microsoft 365, DNS and Outlook setup is in
+[`docs/email-setup.md`](docs/email-setup.md).
 
 ## Where to edit content
 
