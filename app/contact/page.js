@@ -1,9 +1,10 @@
+import Image from "next/image";
 import PageTransition from "@/components/page-transition";
 import PageHero from "@/components/page-hero";
 import ContactForm from "@/components/contact-form";
 import EmailText from "@/components/email-text";
-import { ArrowUpRight, Calendar, LinkedIn, Mail } from "@/components/icons";
-import { inquiryReasons, site } from "@/lib/site";
+import { ArrowUpRight, LinkedIn, Mail } from "@/components/icons";
+import { founder, inquiryReasons, site } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -50,9 +51,20 @@ export default function ContactPage() {
             <div className="relative overflow-hidden rounded-[2rem] bg-brand-950 p-8 text-pearl">
               <div aria-hidden="true" className="band-azure opacity-[0.14]" />
               <div className="relative">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-azure-300 text-ink">
-                  <Calendar className="h-6 w-6" />
-                </span>
+                <div className="flex items-center gap-4">
+                  <Image
+                    src={founder.portraits.contact.src}
+                    alt={`${founder.name}, founder of LAI Healthcare Solutions`}
+                    width={founder.portraits.contact.width}
+                    height={founder.portraits.contact.height}
+                    sizes="4rem"
+                    className="h-16 w-16 shrink-0 rounded-2xl ring-2 ring-azure-300"
+                  />
+                  <span>
+                    <span className="block font-display text-lg leading-tight">{founder.name}</span>
+                    <span className="mt-1 block text-sm text-mist-300">Founder</span>
+                  </span>
+                </div>
                 <h2 className="mt-6 font-display text-2xl leading-snug">Prefer to talk directly?</h2>
                 <p className="mt-3 leading-relaxed text-mist-300">
                   Choose a time that works for you and book a call with our team.

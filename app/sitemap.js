@@ -13,7 +13,7 @@ export default function sitemap() {
     ...services.map((s) => ({ path: `/services/${s.slug}`, priority: 0.8 })),
     { path: "/about", priority: 0.8, images: [absolute(founder.portraits.about.src)] },
     { path: "/speaking", priority: 0.8, images: [absolute(founder.portraits.speaking.src)] },
-    { path: "/contact", priority: 0.7 },
+    { path: "/contact", priority: 0.7, images: [absolute(founder.portraits.contact.src)] },
     { path: "/legal", priority: 0.2, changeFrequency: "yearly" },
   ];
 
