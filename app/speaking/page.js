@@ -161,7 +161,7 @@ export default function SpeakingPage() {
             <div className="relative overflow-hidden rounded-[2.25rem] shadow-lift">
               <Image
                 src={founder.portraits.speaking.src}
-                alt={`Keynote speaker ${founder.name}, PhD, RN`}
+                alt={`${founder.name}, PhD, RN, delivering a keynote on stage`}
                 width={founder.portraits.speaking.width}
                 height={founder.portraits.speaking.height}
                 sizes="(min-width: 1024px) 28rem, 90vw"

@@ -324,13 +324,16 @@
   }
 }
 
-.float-slow {
-  animation: float-y 7s ease-in-out infinite;
-}
+/* Hero badges only drift once they float over the portrait frame; on phones they sit still in a row. */
+@media (width >= 40rem) {
+  .float-slow {
+    animation: float-y 7s ease-in-out infinite;
+  }
 
-.float-slower {
-  animation: float-y 9s ease-in-out infinite;
-  animation-delay: -3s;
+  .float-slower {
+    animation: float-y 9s ease-in-out infinite;
+    animation-delay: -3s;
+  }
 }
 
 @keyframes marquee {
