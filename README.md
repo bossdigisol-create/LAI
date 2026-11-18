@@ -114,8 +114,6 @@ variations through CSS. Standalone files are in `public/brand/`.
 - The previous site claimed "100+ hospitals and startups". It has been left out because it could not be verified.
   Add it back, along with client logos or testimonials, once there is permission to publish them.
 - Review the privacy policy and terms in `app/legal/page.js` with legal counsel.
-- Replace the scheduling link (`bookingUrl` in `lib/site.js`) with the booking page Stephanie uses with her current
-  calendar once she confirms it. It is the single link used for consultations and speaking requests site-wide.
 - Review the copy for the new AI Translation & Change Management service (`lib/services.js`), drafted from the
   client's feedback.
 - Review the "Other authored work" list on the About page (`articles` and `otherPublications` in `lib/site.js`).
